@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import "./variable";
+@import "./layout";
+@import "./style";
+@import "./mixins";
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto;
+}
+.container {
+  width: 96%;
+  margin: 0 auto;
+}
+
+.blck-btn {
+  background-color: $primary-color;
+  border: 0;
+  color: #fff;
+  padding: 0.5em 1em;
+}
+
+button {
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}

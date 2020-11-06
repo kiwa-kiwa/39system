@@ -1,0 +1,32 @@
+.blw {
+  background-color: #e5e5e5;
+  padding: 2em 0;
+  .blck-btn {
+    width: 200px;
+    margin: 0 auto;
+    margin-bottom: 2em;
+  }
+}
+.info {
+  margin-right: 2em;
+}
+.table-container {
+  width: 100%;
+  overflow-y: scroll;
+  margin: 2em 0;
+  table {
+    width: 100%;
+    background-color: #fff;
+    border-spacing: 0;
+    tbody {
+      tr:nth-child(odd) {
+        background-color: #e5e5e5;
+      }
+    }
+    th,
+    td {
+      padding: 0.5em;
+      font-size: 0.9em;
+    }
+  }
+}
