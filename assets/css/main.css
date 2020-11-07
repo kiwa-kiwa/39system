@@ -33,7 +33,7 @@
 
 .table-container {
   width: 100%;
-  overflow-y: scroll;
+  overflow: auto;
   margin: 2em 0;
 }
 
@@ -44,13 +44,25 @@
 }
 
 .table-container table tbody tr:nth-child(odd) {
-  background-color: #e5e5e5;
+  background-color: #f6f9fd;
 }
 
 .table-container table th,
 .table-container table td {
   padding: 0.5em;
   font-size: 0.9em;
+}
+
+@media screen and (max-width: 426px) {
+  header .row {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    text-align: center;
+  }
+  header .row .boxes .blck-btn {
+    margin-bottom: 1em;
+  }
 }
 
 body {
