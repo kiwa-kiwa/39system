@@ -1,5 +1,5 @@
 {
-  "name": "Pj",
+  "name": "Aggregator",
   "version": "1.0.1",
   "description": "",
   "main": "main.js",
@@ -10,8 +10,8 @@
     "dist": "electron-builder"
   },
   "build": {
-    "productName": "demo",
-    "appId": "demo.id.pj",
+    "productName": "aggregator",
+    "appId": "aggregator.id.pj",
     "directories": {
       "output": "build"
     }
