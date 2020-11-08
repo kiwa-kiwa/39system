@@ -7,7 +7,7 @@
 
 body {
   margin: 0;
-  padding: 0;
+  padding: 0 1%;
   font-family: Roboto;
 }
 .container {
@@ -17,9 +17,9 @@ body {
 
 .blck-btn {
   background-color: $primary-color;
-  border: 0;
   color: #fff;
   padding: 0.5em 1em;
+  cursor: pointer;
 }
 
 button {

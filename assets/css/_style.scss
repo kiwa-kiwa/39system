@@ -1,3 +1,6 @@
+#result {
+  display: none;
+}
 .blw {
   background-color: #e5e5e5;
   padding: 2em 0;
@@ -8,25 +11,28 @@
   }
 }
 .info {
-  margin-right: 2em;
+  margin: 2em;
 }
 .table-container {
-  width: 100%;
   overflow: auto;
-  margin: 2em 0;
+  background-color: #e5e5e5;
   table {
-    width: 100%;
     background-color: #fff;
     border-spacing: 0;
     tbody {
+      // tr {
+      //   display: flex;
+      // }
       tr:nth-child(odd) {
         background-color: #f6f9fd;
       }
-    }
-    th,
-    td {
-      padding: 0.5em;
-      font-size: 0.9em;
+      tr:first-child() {
+        font-weight: 600;
+      }
+      td {
+        min-width: 5%;
+        padding: 0.5em;
+      }
     }
   }
 }

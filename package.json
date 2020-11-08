@@ -1,5 +1,5 @@
 {
-  "name": "Aggregator",
+  "name": "aggregator",
   "version": "1.0.1",
   "description": "",
   "main": "main.js",
@@ -22,5 +22,9 @@
   "devDependencies": {
     "electron": "^10.1.5",
     "electron-builder": "^22.9.1"
+  },
+  "dependencies": {
+    "jquery": "^3.5.1",
+    "read-excel-file": "^4.0.7"
   }
 }
