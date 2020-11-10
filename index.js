@@ -7,6 +7,17 @@ input.addEventListener("change", () => {
   readXlsxFile(input.files[0].path).then((rows) => {
     // rows.forEach(createTable(rows));
     createTable(rows);
+
+    const columnNames = rows.shift(); // Separate first row with column names
+    const objs = rows.map((row) => {
+      // Map the rest of the rows into objects
+      const obj = {}; // Create object literal for current row
+      row.forEach((cell, i) => {
+        obj[columnNames[i]] = cell; // Use index from current cell to get column name, add current cell to new object
+      });
+      return obj;
+    });
+    console.log(objs);
   });
 });
 
@@ -43,30 +54,6 @@ function createTable(tableData) {
 }
 
 const btnclck = document.getElementById("find");
-
 btnclck.addEventListener("click", () => {
-  addRows("tbl", "result");
+  alert("We will add to db");
 });
-
-function addRows(tableId, resultId) {
-  var table = document.getElementById(tableId);
-  var rows = table.rows;
-  var total = 0;
-  var cell;
-
-  // Assume first row is headers, adjust as required
-  // Assume last row is footer, addjust as required
-
-  for (
-    var col = 1;
-    col <= document.getElementById("tbl").rows[0].cells.length;
-    col++
-  ) {
-    for (var i = 1, iLen = rows.length; i < iLen; i++) {
-      cell = rows[i].cells[col];
-      total[col] += Number(cell.textContent || cell.innerText);
-    }
-    console.log(total[col]);
-  }
-  document.getElementById(resultId).innerHTML = total;
-}
