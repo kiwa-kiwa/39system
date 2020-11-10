@@ -43,12 +43,7 @@
 .table-container table {
   background-color: #fff;
   border-spacing: 0;
-}
-
-.table-container table tbody tr {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  width: 100%;
 }
 
 .table-container table tbody tr:nth-child(odd) {
@@ -60,7 +55,6 @@
 }
 
 .table-container table tbody td {
-  min-width: 5%;
   padding: 0.5em;
 }
 

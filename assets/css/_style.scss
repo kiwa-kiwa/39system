@@ -19,10 +19,8 @@
   table {
     background-color: #fff;
     border-spacing: 0;
+    width: 100%;
     tbody {
-      // tr {
-      //   display: flex;
-      // }
       tr:nth-child(odd) {
         background-color: #f6f9fd;
       }
@@ -30,7 +28,6 @@
         font-weight: 600;
       }
       td {
-        min-width: 5%;
         padding: 0.5em;
       }
     }
