@@ -17,7 +17,7 @@
     }
   },
   "keywords": [],
-  "author": "",
+  "author": "Sonahang Rai",
   "license": "ISC",
   "devDependencies": {
     "electron": "^10.1.5",
