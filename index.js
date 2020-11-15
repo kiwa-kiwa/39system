@@ -1,56 +1,89 @@
-const readXlsxFile = require("read-excel-file/node");
-const Papa = require("papaparse");
 const input = document.getElementById("ec");
 const input2 = document.getElementById("vc");
 const savedb1 = require("./ecdb");
-const { get } = require("jquery");
+const savedb2 = require("./realdb");
+const fs = require("fs");
+const iconv = require("iconv-lite");
 
 //EC File Change Event
 input.addEventListener("change", () => {
   document.getElementById("result").style.display = "block";
-  readXlsxFile(input.files[0].path).then((rows) => {
-    if (document.getElementById("tbl-part") == null) {
-      createTable(rows);
-    } else {
-      document.getElementById("tbl-part").remove();
-      createTable(rows);
-    }
-    rows.forEach((row, index) => {
-      if (index != 0) {
-        savedb1(row);
+
+  //Shift to UTF
+  var paths = input.files[0].path;
+  readFile(paths);
+  function readFile(path) {
+    fs.readFile(path, function (error, text) {
+      if (error != null) {
+        alert("error : " + error);
+        return;
       }
+      //Decoding
+      var str = iconv.decode(text, "Shift_JIS");
+      //Spliting the csv with line break
+      var lines = str.split("\n");
+      //Spliting lines by delimiter comma
+      var result = lines.map(function (line) {
+        return line.split(",");
+      });
+
+      console.log(result);
+
+      //Calling The Parse Function
+      // if (document.getElementById("tbl-part") == null) {
+      //   createTable(result);
+      // } else {
+      //   document.getElementById("tbl-part").remove();
+      //   createTable(result);
+      // }
+      // result.forEach((row, index) => {
+      //   if (index != 0) {
+      //     savedb(row);
+      //   }
+      // });
     });
-  });
+  }
 });
 
 //Real Store FIle Change Event
 input2.addEventListener("change", () => {
   document.getElementById("result").style.display = "block";
 
-  //Calling The Parse Function
-  parseMe(input2.files[0], doStuff);
+  //Shift to UTF
+  var paths = input2.files[0].path;
+  readFile(paths);
+  function readFile(path) {
+    fs.readFile(path, function (error, text) {
+      if (error != null) {
+        alert("error : " + error);
+        return;
+      }
+      //Decoding
+      var str = iconv.decode(text, "Shift_JIS");
+      //Spliting the csv with line break
+      var lines = str.split("\n");
+      //Spliting lines by delimiter comma
+      var result = lines.map(function (line) {
+        return line.split(",");
+      });
+      console.log(result);
+
+      //Checking for existing table
+      if (document.getElementById("tbl-part") == null) {
+        createTable(result);
+      } else {
+        document.getElementById("tbl-part").remove();
+        createTable(result);
+      }
+      //saving to database
+      result.forEach((row, index) => {
+        if (index != 0) {
+          savedb2(row);
+        }
+      });
+    });
+  }
 });
-
-//The parse function
-function parseMe(url, callBack) {
-  Papa.parse(url, {
-    complete: function (results) {
-      callBack(results.data);
-    },
-  });
-}
-
-//Result function of Parse
-function doStuff(data) {
-  var newArray = data;
-  //Creating Table
-  createTable(newArray);
-  newArray.forEach((row, index) => {
-    if (index != 0) {
-      console.log(row);
-    }
-  });
-}
 
 //A function that renders the table after the file is loaded
 function createTable(tableData) {
