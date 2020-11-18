@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <title>Document</title>
+  </head>
+  <body class="upload">
+    <div class="top">
+      <div class="pagination">
+        <span>トップページ ＞ CSV登録</span>
+      </div>
+      <div class="title">
+        <h2>CSV登録</h2>
+      </div>
+    </div>
+    <div class="upload-box">
+      <div class="row">
+        <div class="up-desc">
+          CSVファイルを選択
+          <small>必須</small>
+        </div>
+        <div class="up-btn">
+          <input type="file" id="vc" hidden />
+          <label for="vc">CSVファイルを選択する</label>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="row">
+        <a class="backbtn" href="./index.html">トップページに戻る</a>
+        <a class="nextbtn" href="./index.html">登録する</a>
+      </div>
+    </footer>
+  </body>
+  <script src="./ecdb.js"></script>
+</html>

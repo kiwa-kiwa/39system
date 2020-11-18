@@ -5,11 +5,16 @@
 @import "./mixins";
 @import "./responsive";
 
-body {
-  margin: 0;
-  padding: 0 1%;
-  font-family: Roboto;
+.row {
+  display: flex;
+  flex-wrap: wrap;
 }
+
+.space-between {
+  justify-content: space-between;
+  align-items: center;
+}
+
 .container {
   width: 96%;
   margin: 0 auto;
@@ -20,11 +25,40 @@ body {
   color: #fff;
   padding: 0.5em 1em;
   cursor: pointer;
+  border: 0;
 }
 
 button {
   cursor: pointer;
   &:focus {
     outline: none;
+  }
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  background: #fff;
+  width: 96%;
+  padding: 2%;
+  left: 0;
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .backbtn {
+      background: #dddddd;
+      border: 1px solid #000000;
+      text-decoration: none;
+      color: #000;
+      padding: 0.5em 2em;
+    }
+    .nextbtn {
+      background-color: $primary-color;
+      color: #fff;
+      padding: 0.5em 1em;
+      text-decoration: none;
+      padding: 0.5em 2em;
+    }
   }
 }

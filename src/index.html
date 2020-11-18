@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>ダイユーエイト 分析ツール</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      window.$ = window.jQuery = require("jquery");
+    </script>
+  </head>
+  <body class="index">
+    <header>
+      <div class="row space-between">
+        <h2>顧客一覧</h2>
+        <div class="boxes">
+          <button class="blck-btn" id="ec">
+            EC会員情報をエクセルで登録する
+          </button>
+          <button class="blck-btn" id="vc">
+            店舗会員情報をエクセルで登録する
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="blw" id="result">
+      <div class="row">
+        <button class="btn blck-btn" id="find">検索する</button>
+      </div>
+      <div class="row">
+        <div class="info">
+          <div class="info-item" id="result">店舗のみ会員合計：300 名</div>
+        </div>
+      </div>
+      <div id="tableau"></div>
+    </section>
+    <script src="./index.js" type="module"></script>
+  </body>
+</html>

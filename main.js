@@ -1,4 +1,6 @@
 const { app, BrowserWindow } = require("electron");
+const { ipcMain } = require("electron");
+const { shell } = require("electron");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -9,9 +11,9 @@ function createWindow() {
     },
   });
 
-  win.loadFile("index.html");
+  win.loadFile("src/index.html");
   win.webContents.openDevTools();
-  win.removeMenu();
+  //win.removeMenu();
 }
 
 app.whenReady().then(createWindow);
@@ -26,4 +28,8 @@ app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
+});
+
+ipcMain.on("loadGH", (event, arg) => {
+  window.open(arg);
 });

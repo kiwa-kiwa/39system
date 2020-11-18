@@ -10,39 +10,39 @@ input.addEventListener("change", () => {
   document.getElementById("result").style.display = "block";
 
   //Shift to UTF
-  var paths = input.files[0].path;
-  readFile(paths);
-  function readFile(path) {
-    fs.readFile(path, function (error, text) {
-      if (error != null) {
-        alert("error : " + error);
-        return;
-      }
-      //Decoding
-      var str = iconv.decode(text, "Shift_JIS");
-      //Spliting the csv with line break
-      var lines = str.split("\n");
-      //Spliting lines by delimiter comma
-      var result = lines.map(function (line) {
-        return line.split(",");
-      });
+  // var paths = input.files[0].path;
+  // readFile(paths);
+  // function readFile(path) {
+  //   fs.readFile(path, function (error, text) {
+  //     if (error != null) {
+  //       alert("error : " + error);
+  //       return;
+  //     }
+  //     //Decoding
+  //     var str = iconv.decode(text, "Shift_JIS");
+  //     //Spliting the csv with line break
+  //     var lines = str.split("\n");
+  //     //Spliting lines by delimiter comma
+  //     var result = lines.map(function (line) {
+  //       return line.split(",");
+  //     });
 
-      console.log(result);
+  //     console.log(result);
 
-      //Calling The Parse Function
-      // if (document.getElementById("tbl-part") == null) {
-      //   createTable(result);
-      // } else {
-      //   document.getElementById("tbl-part").remove();
-      //   createTable(result);
-      // }
-      // result.forEach((row, index) => {
-      //   if (index != 0) {
-      //     savedb(row);
-      //   }
-      // });
-    });
-  }
+  //     Calling The Parse Function
+  //     if (document.getElementById("tbl-part") == null) {
+  //       createTable(result);
+  //     } else {
+  //       document.getElementById("tbl-part").remove();
+  //       createTable(result);
+  //     }
+  //     result.forEach((row, index) => {
+  //       if (index != 0) {
+  //         savedb(row);
+  //       }
+  //     });
+  //   });
+  // }
 });
 
 //Real Store FIle Change Event
