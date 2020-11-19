@@ -15,7 +15,10 @@
 }
 .table-container {
   overflow: auto;
-  background-color: #e5e5e5;
+  background-color: #fff;
+  h2 {
+    margin: 1em;
+  }
   table {
     background-color: #fff;
     border-spacing: 0;

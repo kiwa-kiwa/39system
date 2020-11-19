@@ -100,7 +100,11 @@ header {
 
 .table-container {
   overflow: auto;
-  background-color: #e5e5e5;
+  background-color: #fff;
+}
+
+.table-container h2 {
+  margin: 1em;
 }
 
 .table-container table {
@@ -131,6 +135,10 @@ header {
   header .row .boxes .blck-btn {
     margin-bottom: 1em;
   }
+}
+
+body {
+  background-color: #e5e5e5;
 }
 
 .row {

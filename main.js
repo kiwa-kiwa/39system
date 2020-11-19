@@ -30,6 +30,6 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.on("loadGH", (event, arg) => {
-  window.open(arg);
+ipcMain.on("variable-request", function (event, arg) {
+  event.sender.send("variable-reply", result);
 });
