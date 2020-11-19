@@ -114,10 +114,38 @@ function savedb1(row) {
         VALUES
          ${result}`,
     function (err, result) {
-      if (err) throw err;
-      console.log("data inserted");
+      if (err) {
+        throw err;
+      } else {
+        filelog();
+        location.href = "success.html";
+      }
     }
   );
+
+  //Geting file name from storage and extracting Name
+  var file_name = localStorage.getItem("file");
+  var filename = "'" + file_name.replace(/^.*[\\\/]/, "") + "'";
+
+  //Insert File Log in Import Databse
+
+  function filelog() {
+    connection.query(
+      `INSERT INTO e_csv_import (
+          file_name,
+          import_timestamp
+          )
+          VALUES
+           (${filename}, NOW())`,
+      function (err, result) {
+        if (err) {
+          throw err;
+        } else {
+          console.log("timestamp done");
+        }
+      }
+    );
+  }
 }
 
 module.exports = savedb1;

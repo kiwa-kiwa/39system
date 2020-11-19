@@ -22,7 +22,6 @@ function readFile(path) {
       return line.split(",");
     });
     result.pop();
-    localStorage.clear();
     createTable(result);
     datas = result;
   });

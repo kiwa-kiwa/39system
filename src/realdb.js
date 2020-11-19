@@ -23,7 +23,7 @@ function savedb2(row) {
     );
   }, "(");
 
-  var query = connection.query(
+  connection.query(
     `INSERT INTO e_real_sales (
         customer_id,
         customer_name,
@@ -45,11 +45,38 @@ function savedb2(row) {
         VALUES
          ${result}`,
     function (err, result) {
-      if (err) throw err;
-      console.log("data inserted");
-      location.href = "success.html";
+      if (err) {
+        throw err;
+      } else {
+        filelog();
+        location.href = "success.html";
+      }
     }
   );
+
+  //Geting file name from storage and extracting Name
+  var file_name = localStorage.getItem("file");
+  var filename = "'" + file_name.replace(/^.*[\\\/]/, "") + "'";
+
+  //Insert File Log in Import Databse
+
+  function filelog() {
+    connection.query(
+      `INSERT INTO e_csv_import (
+          file_name,
+          import_timestamp
+          )
+          VALUES
+           (${filename}, NOW())`,
+      function (err, result) {
+        if (err) {
+          throw err;
+        } else {
+          console.log("timestamp done");
+        }
+      }
+    );
+  }
 }
 
 module.exports = savedb2;
