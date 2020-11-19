@@ -24,7 +24,7 @@ function savedb2(row) {
   }, "(");
 
   var query = connection.query(
-    `INSERT INTO e_ec_sales (
+    `INSERT INTO e_real_sales (
         customer_id,
         customer_name,
         customer_name_kana,
@@ -35,6 +35,7 @@ function savedb2(row) {
         in_house_payment,
         in_house_quantity,
         in_house_coming_cnt,
+        in_house_coming_date_cnt,
         other_company_payment,
         other_company_quantity,
         other_company_coming_cnt,
@@ -46,6 +47,7 @@ function savedb2(row) {
     function (err, result) {
       if (err) throw err;
       console.log("data inserted");
+      location.href = "success.html";
     }
   );
 }

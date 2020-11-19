@@ -1,9 +1,11 @@
 const fs = require("fs");
 const iconv = require("iconv-lite");
+const savedb2 = require("./realdb");
+
+var datas;
 
 //Shift to UTF
 var paths = localStorage.getItem("file");
-console.log(paths);
 readFile(paths);
 function readFile(path) {
   fs.readFile(path, function (error, text) {
@@ -20,9 +22,9 @@ function readFile(path) {
       return line.split(",");
     });
     result.pop();
-    console.log(result);
     localStorage.clear();
     createTable(result);
+    datas = result;
   });
 }
 
@@ -58,3 +60,12 @@ function createTable(tableData) {
   var getbl2 = document.getElementById("tbl");
   getbl.insertBefore(title, getbl2);
 }
+
+//Saving to Database
+document.getElementById("savedb").addEventListener("click", () => {
+  datas.forEach((data, i) => {
+    if (i != 0) {
+      savedb2(data);
+    }
+  });
+});
