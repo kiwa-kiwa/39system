@@ -1,5 +1,6 @@
 const fs = require("fs");
 const iconv = require("iconv-lite");
+const filelog = require("./csvlog");
 const savedb2 = require("./realdb");
 
 var datas;
@@ -67,4 +68,5 @@ document.getElementById("savedb").addEventListener("click", () => {
       savedb2(data);
     }
   });
+  filelog();
 });

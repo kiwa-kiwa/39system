@@ -1,14 +1,5 @@
-var mysql = require("mysql");
+const connection = require("../config");
 
-//mysql connection setup
-var connection = mysql.createConnection({
-  host: "localhost",
-  port: "3306",
-  user: "root",
-  password: "",
-  database: "db_aggregator",
-  multipleStatements: true,
-});
 //Saving To DB
 function savedb1(row) {
   // Making the array suitable for the MYSQL query
@@ -114,38 +105,9 @@ function savedb1(row) {
         VALUES
          ${result}`,
     function (err, result) {
-      if (err) {
-        throw err;
-      } else {
-        filelog();
-        location.href = "success.html";
-      }
+      if (err) throw err;
     }
   );
-
-  //Geting file name from storage and extracting Name
-  var file_name = localStorage.getItem("file");
-  var filename = "'" + file_name.replace(/^.*[\\\/]/, "") + "'";
-
-  //Insert File Log in Import Databse
-
-  function filelog() {
-    connection.query(
-      `INSERT INTO e_csv_import (
-          file_name,
-          import_timestamp
-          )
-          VALUES
-           (${filename}, NOW())`,
-      function (err, result) {
-        if (err) {
-          throw err;
-        } else {
-          console.log("timestamp done");
-        }
-      }
-    );
-  }
 }
 
 module.exports = savedb1;
