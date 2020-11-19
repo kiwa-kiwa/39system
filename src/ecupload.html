@@ -26,10 +26,13 @@
           <small>必須</small>
         </div>
         <div class="up-btn">
-          <input type="file" id="vc" hidden />
-          <label for="vc">CSVファイルを選択する</label>
+          <input type="file" id="ec" hidden onchange="check(this)" />
+          <label for="ec">CSVファイルを選択する</label>
         </div>
       </div>
+    </div>
+    <div class="msg-box">
+      <span id="msg"></span>
     </div>
     <footer>
       <div class="row">
@@ -38,5 +41,5 @@
       </div>
     </footer>
   </body>
-  <script src="./ecdb.js"></script>
+  <script src="./ecupload.js"></script>
 </html>
