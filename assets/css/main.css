@@ -146,6 +146,10 @@ header {
   padding: 0.5em;
 }
 
+.list-container h2 {
+  margin: 0 1em;
+}
+
 @media screen and (max-width: 426px) {
   header .row {
     -webkit-box-pack: center;
