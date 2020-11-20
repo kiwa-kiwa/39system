@@ -25,6 +25,7 @@ function readFile(path) {
     result.pop();
     createTable(result);
     datas = result;
+    console.log(datas);
   });
 }
 
@@ -40,16 +41,18 @@ function createTable(tableData) {
   table.id = "tbl";
   var tableBody = document.createElement("tbody");
 
-  tableData.forEach(function (rowData) {
-    var row = document.createElement("tr");
+  tableData.forEach(function (rowData, i) {
+    if (i <= 10) {
+      var row = document.createElement("tr");
 
-    rowData.forEach(function (cellData) {
-      var cell = document.createElement("td");
-      cell.appendChild(document.createTextNode(cellData));
-      row.appendChild(cell);
-    });
+      rowData.forEach(function (cellData) {
+        var cell = document.createElement("td");
+        cell.appendChild(document.createTextNode(cellData));
+        row.appendChild(cell);
+      });
 
-    tableBody.appendChild(row);
+      tableBody.appendChild(row);
+    }
   });
 
   container.appendChild(table);
