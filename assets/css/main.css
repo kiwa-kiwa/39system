@@ -151,7 +151,7 @@ header {
 }
 
 section.table {
-  height: 80vh;
+  height: 60vh;
   width: 100%;
 }
 
@@ -210,6 +210,24 @@ section.table table tbody tr:nth-child(odd) {
 
 section.table table tbody tr td {
   padding: 6px;
+}
+
+section.aggregate {
+  width: 100%;
+}
+
+section.aggregate .arow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+section.aggregate .arow .ag-item ul {
+  padding-left: 01em;
+  margin-right: 4em;
 }
 
 @media screen and (max-width: 426px) {

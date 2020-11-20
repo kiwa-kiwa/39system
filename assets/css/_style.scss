@@ -44,7 +44,7 @@
 }
 
 section.table {
-  height: 80vh;
+  height: 60vh;
   width: 100%;
   #example_wrapper {
     display: flex;
@@ -88,6 +88,20 @@ section.table {
         td {
           padding: 6px;
         }
+      }
+    }
+  }
+}
+
+section.aggregate {
+  width: 100%;
+  .arow {
+    display: flex;
+    justify-content: flex-start;
+    .ag-item {
+      ul {
+        padding-left: 01em;
+        margin-right: 4em;
       }
     }
   }
