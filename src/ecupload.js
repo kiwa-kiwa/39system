@@ -1,5 +1,6 @@
 var element = document.getElementById("ec");
 var nextbtn = document.getElementById("nextbtn");
+const connection = require("../config");
 
 var fl = element.value;
 if (fl == "") {
@@ -30,4 +31,50 @@ function check(e) {
     document.getElementById("msg").innerHTML = "Only CSV are allowed";
     return false;
   }
+}
+
+connection.query(
+  `SELECT import_timestamp FROM e_csv_import ORDER BY "import_timestamp" DESC
+LIMIT 5`,
+  function (err, result) {
+    if (err) throw err;
+    createLog(result);
+  }
+);
+
+//A function that renders the log of uploads
+function createLog(data) {
+  var container = document.createElement("section");
+  container.classList.add("list-container");
+  container.id = "list-part";
+  var title = document.createElement("h2");
+  var titletext = document.createTextNode("登録済履歴");
+  title.appendChild(titletext);
+
+  var row = document.createElement("ul");
+
+  data.forEach((element) => {
+    var list = document.createElement("li");
+    list.appendChild(
+      document.createTextNode(formatDate(element.import_timestamp))
+    );
+    row.appendChild(list);
+  });
+
+  container.appendChild(title);
+  container.appendChild(row);
+  document.body.appendChild(container);
+}
+
+//Date Formating
+function formatDate(date) {
+  var d = new Date(date),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("-");
 }

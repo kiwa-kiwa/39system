@@ -4,6 +4,7 @@ const filelog = require("./csvlog");
 const savedb1 = require("./ecdb");
 
 var datas;
+
 //Shift to UTF
 var paths = localStorage.getItem("file");
 readFile(paths);
@@ -22,7 +23,6 @@ function readFile(path) {
       return line.split(",");
     });
     result.pop();
-    localStorage.clear();
     createTable(result);
     datas = result;
   });

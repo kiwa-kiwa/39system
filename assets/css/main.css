@@ -21,30 +21,30 @@ header {
   width: 100%;
 }
 
-.upload,
+.ecupload,
 .reupload {
   height: 100vh;
   background-color: #e5e5e5;
 }
 
-.upload .pagination span,
+.ecupload .pagination span,
 .reupload .pagination span {
   font-size: 1em;
 }
 
-.upload .title h2,
+.ecupload .title h2,
 .reupload .title h2 {
   font-size: 2em;
   margin: 0;
 }
 
-.upload .upload-box,
+.ecupload .upload-box,
 .reupload .upload-box {
   background-color: #fff;
   margin-top: 10vh;
 }
 
-.upload .upload-box .row,
+.ecupload .upload-box .row,
 .reupload .upload-box .row {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -55,13 +55,13 @@ header {
   height: 30vh;
 }
 
-.upload .upload-box .row .up-desc,
+.ecupload .upload-box .row .up-desc,
 .reupload .upload-box .row .up-desc {
   margin-right: 1em;
   font-weight: 600;
 }
 
-.upload .upload-box .row .up-desc small,
+.ecupload .upload-box .row .up-desc small,
 .reupload .upload-box .row .up-desc small {
   background-color: #000;
   color: #fff;
@@ -69,14 +69,14 @@ header {
   padding: 0.5em 1em;
 }
 
-.upload .upload-box .row .up-btn label,
+.ecupload .upload-box .row .up-btn label,
 .reupload .upload-box .row .up-btn label {
   border: 1px solid #000;
   padding: 0.8em 1em;
   cursor: pointer;
 }
 
-.upload .msg-box,
+.ecupload .msg-box,
 .reupload .msg-box {
   height: 10vh;
   margin: 2vh 2vh 0;
