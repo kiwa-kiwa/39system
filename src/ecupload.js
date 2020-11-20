@@ -29,6 +29,7 @@ function check(e) {
     return true;
   } else {
     document.getElementById("msg").innerHTML = "Only CSV are allowed";
+    nextbtn.href = "#";
     return false;
   }
 }
