@@ -1,4 +1,6 @@
 const path = require("path");
+var $ = require("jquery");
+require("datatables.net")(window, $);
 
 //EC CLick
 document.getElementById("ec").addEventListener("click", () => {
@@ -10,4 +12,17 @@ document.getElementById("ec").addEventListener("click", () => {
 document.getElementById("vc").addEventListener("click", () => {
   const upload = path.join("file://" + __dirname + "/reupload.html");
   window.location.href = upload;
+});
+
+$("#example").DataTable({
+  searching: false,
+  lengthChange: false,
+  ordering: false,
+  info: false,
+  language: {
+    oPaginate: {
+      sNext: ">>",
+      sPrevious: "<<",
+    },
+  },
 });

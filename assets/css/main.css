@@ -150,6 +150,68 @@ header {
   margin: 0 1em;
 }
 
+section.table {
+  height: 80vh;
+  width: 100%;
+}
+
+section.table #example_wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+}
+
+section.table #example_wrapper #example_paginate {
+  padding: 2em 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+section.table #example_wrapper #example_paginate a.paginate_button {
+  padding: 0 0.5em;
+}
+
+section.table #example_wrapper #example_paginate a.paginate_button.disabled {
+  color: #9e9797;
+}
+
+section.table #example_wrapper #example_paginate span a.paginate_button {
+  background: #fff;
+  padding: 0.5em;
+}
+
+section.table #example_wrapper #example_paginate span a.paginate_button.current {
+  background-color: #000;
+  color: #fff;
+}
+
+section.table table {
+  background-color: #fff;
+}
+
+section.table table thead th {
+  text-align: left;
+  padding: 6px;
+}
+
+section.table table tbody tr:nth-child(odd) {
+  background-color: #e5e5e5;
+}
+
+section.table table tbody tr td {
+  padding: 6px;
+}
+
 @media screen and (max-width: 426px) {
   header .row {
     -webkit-box-pack: center;
@@ -172,6 +234,10 @@ body {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+}
+
+a {
+  cursor: pointer;
 }
 
 .space-between {
