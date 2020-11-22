@@ -24,15 +24,13 @@ function savedb2(row) {
         customer_address1,
         customer_tel1,
         customer_birthday,
-        in_house_payment,
-        in_house_quantity,
-        in_house_coming_cnt,
-        in_house_coming_date_cnt,
-        other_company_payment,
-        other_company_quantity,
-        other_company_coming_cnt,
-        other_company_coming_date_cnt,
-        date
+        store_id,
+        store_name,
+        payment_date,
+        payment_money,
+        payment_item_cnt,
+        coming_cnt,
+        mobile_e_mail
         )
         VALUES
          ${result}`,
