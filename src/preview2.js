@@ -40,7 +40,7 @@ function createTable(tableData) {
   table.id = "tbl";
   var tableBody = document.createElement("tbody");
 
-  tableData.forEach(function (rowData) {
+  tableData.forEach(function (rowData, i) {
     if (i <= 10) {
       var row = document.createElement("tr");
 
