@@ -41,15 +41,17 @@ function createTable(tableData) {
   var tableBody = document.createElement("tbody");
 
   tableData.forEach(function (rowData) {
-    var row = document.createElement("tr");
+    if (i <= 10) {
+      var row = document.createElement("tr");
 
-    rowData.forEach(function (cellData) {
-      var cell = document.createElement("td");
-      cell.appendChild(document.createTextNode(cellData));
-      row.appendChild(cell);
-    });
+      rowData.forEach(function (cellData) {
+        var cell = document.createElement("td");
+        cell.appendChild(document.createTextNode(cellData));
+        row.appendChild(cell);
+      });
 
-    tableBody.appendChild(row);
+      tableBody.appendChild(row);
+    }
   });
 
   container.appendChild(table);
