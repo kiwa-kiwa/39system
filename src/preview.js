@@ -1,5 +1,6 @@
 const fs = require("fs");
 const iconv = require("iconv-lite");
+const filelog = require("./csvlog");
 const savedb1 = require("./ecdb");
 
 var datas;
@@ -24,7 +25,6 @@ function readFile(path) {
     result.pop();
     createTable(result);
     datas = result;
-    console.log(datas);
   });
 }
 
@@ -70,4 +70,5 @@ document.getElementById("savedb").addEventListener("click", () => {
       savedb1(data);
     }
   });
+  filelog();
 });

@@ -1,5 +1,4 @@
 const connection = require("../config");
-const filelog = require("./csvlog");
 
 //Saving To DB
 function savedb1(row) {
@@ -15,7 +14,7 @@ function savedb1(row) {
     );
   }, "(");
 
-  var query = connection.query(
+  connection.query(
     `INSERT INTO e_ec_sales (
           order_id,
           manage_id,
@@ -108,8 +107,6 @@ function savedb1(row) {
     function (err, result) {
       if (err) {
         location.href = "failed.html";
-      } else {
-        filelog();
       }
     }
   );

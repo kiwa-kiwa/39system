@@ -1,5 +1,4 @@
 const connection = require("../config");
-const filelog = require("./csvlog");
 
 //Saving To DB
 function savedb2(row) {
@@ -25,7 +24,6 @@ function savedb2(row) {
         customer_tel1,
         customer_birthday,
         store_id,
-        store_name,
         payment_date,
         payment_money,
         payment_item_cnt,
@@ -37,8 +35,6 @@ function savedb2(row) {
     function (err, result) {
       if (err) {
         location.href = "failed.html";
-      } else {
-        filelog();
       }
     }
   );
