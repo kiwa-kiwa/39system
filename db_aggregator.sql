@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2020 at 12:05 PM
+-- Generation Time: Nov 22, 2020 at 07:39 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -31,14 +31,6 @@ CREATE TABLE `e_csv_import` (
   `file_name` text DEFAULT NULL,
   `import_timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `e_csv_import`
---
-
-INSERT INTO `e_csv_import` (`file_name`, `import_timestamp`) VALUES
-('直近40日データ.csv', '2020-11-19 10:11:34'),
-('月指定データ.csv', '2020-11-19 10:11:53');
 
 -- --------------------------------------------------------
 
@@ -148,25 +140,23 @@ CREATE TABLE `e_real_sales` (
   `customer_address1` text DEFAULT NULL,
   `customer_tel1` text DEFAULT NULL,
   `customer_birthday` text DEFAULT NULL,
-  `in_house_payment` text DEFAULT NULL,
-  `in_house_quantity` text DEFAULT NULL,
-  `in_house_coming_cnt` text DEFAULT NULL,
-  `in_house_coming_date_cnt` text DEFAULT NULL,
-  `other_company_payment` text DEFAULT NULL,
-  `other_company_quantity` text DEFAULT NULL,
-  `other_company_coming_cnt` text DEFAULT NULL,
-  `other_company_coming_date_cnt` text DEFAULT NULL,
-  `date` text DEFAULT NULL
+  `store_id` text DEFAULT NULL,
+  `store_name` text DEFAULT NULL,
+  `payment_date` text DEFAULT NULL,
+  `payment_money` text DEFAULT NULL,
+  `payment_item_cnt` text DEFAULT NULL,
+  `coming_cnt` text DEFAULT NULL,
+  `mobile_e_mail` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `e_real_sales`
 --
 
-INSERT INTO `e_real_sales` (`customer_id`, `customer_name`, `customer_name_kana`, `customer_postal_code`, `customer_address1`, `customer_tel1`, `customer_birthday`, `in_house_payment`, `in_house_quantity`, `in_house_coming_cnt`, `in_house_coming_date_cnt`, `other_company_payment`, `other_company_quantity`, `other_company_coming_cnt`, `other_company_coming_date_cnt`, `date`) VALUES
-('2.5E+12', '都築功                                          ', '                        ', '9608254', '                                        ', '090-5184-5048', '1980/6/20', '0', '0', '0', '0', '6842', '3', '1', '1', '2020/9/27\r'),
-('2.5E+12', '都築功                                          ', '                        ', '9608254', '                                        ', '090-5184-5048', '1980/6/20', '0', '0', '0', '0', '5228', '11', '1', '1', '2020/10/17\r'),
-('2.50E+12', '都築功                                          ', '                        ', '9608254', '                                        ', '090-5184-5048', '1980/6/20', '0', '0', '0', '0', '4414', '5', '3', '1', '2020/3/1\r');
+INSERT INTO `e_real_sales` (`customer_id`, `customer_name`, `customer_name_kana`, `customer_postal_code`, `customer_address1`, `customer_tel1`, `customer_birthday`, `store_id`, `store_name`, `payment_date`, `payment_money`, `payment_item_cnt`, `coming_cnt`, `mobile_e_mail`) VALUES
+('2.5E+12', '都築功                                          ', '                        ', '9608254', '                                        ', '090-5184-5048', '1980/6/20', '0', '0', '0', '0', '6842', '3', '1'),
+('2.5E+12', '都築功                                          ', '                        ', '9608254', '                                        ', '090-5184-5048', '1980/6/20', '0', '0', '0', '0', '5228', '11', '1'),
+('2.50E+12', '都築功                                          ', '                        ', '9608254', '                                        ', '090-5184-5048', '1980/6/20', '0', '0', '0', '0', '4414', '5', '3');
 
 -- --------------------------------------------------------
 
