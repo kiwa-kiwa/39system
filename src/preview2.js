@@ -2,8 +2,7 @@ const fs = require("fs");
 const iconv = require("iconv-lite");
 const savedb2 = require("./realdb");
 const filelog = require("./csvlog");
-
-var datas;
+var csv = require("csv");
 
 //Shift to UTF
 var paths = localStorage.getItem("file");
@@ -24,7 +23,6 @@ function readFile(path) {
     });
     result.pop();
     createTable(result);
-    datas = result;
   });
 }
 
@@ -65,10 +63,29 @@ function createTable(tableData) {
 
 //Saving to Database
 document.getElementById("savedb").addEventListener("click", () => {
-  datas.forEach((data, i) => {
-    if (i != 0) {
-      savedb2(data);
+  const stream = fs
+    .createReadStream(paths)
+    .pipe(iconv.decodeStream("SJIS"))
+    .pipe(iconv.encodeStream("UTF-8"))
+    .pipe(csv.parse({ delimiter: ",", from_line: 2 }));
+
+  let count = 0; // 読み込み回数
+  let total = 0; // 合計byte数
+
+  stream.on("readable", () => {
+    let chunk;
+    while ((chunk = stream.read()) !== null) {
+      count++;
+      total += chunk.length;
+      //Spliting lines by delimiter comma
+      var result = chunk.toString("utf-8").split(",");
+      savedb2(result);
     }
   });
-  filelog();
+
+  stream.on("end", () => {
+    console.log(`${count} Obtained in divided times`);
+    console.log(`I got a total of ${total} bytes`);
+    filelog();
+  });
 });

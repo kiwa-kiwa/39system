@@ -16,22 +16,22 @@ function savedb2(row) {
 
   connection.query(
     `INSERT INTO e_real_sales (
-        customer_id,
-        customer_name,
-        customer_name_kana,
-        customer_postal_code,
-        customer_address1,
-        customer_tel1,
-        customer_birthday,
-        store_id,
-        payment_date,
-        payment_money,
-        payment_item_cnt,
-        coming_cnt,
-        mobile_e_mail
-        )
-        VALUES
-         ${result}`,
+          customer_id,
+          customer_name,
+          customer_name_kana,
+          customer_postal_code,
+          customer_address1,
+          customer_tel1,
+          customer_birthday,
+          store_id,
+          payment_date,
+          payment_money,
+          payment_item_cnt,
+          coming_cnt,
+          mobile_e_mail
+          )
+          VALUES
+           ${result}`,
     function (err, result) {
       if (err) {
         location.href = "failed.html";
