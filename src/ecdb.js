@@ -106,8 +106,7 @@ function savedb1(row) {
          ${result}`,
     function (err, result) {
       if (err) {
-        console.log(err);
-        //location.href = "failed.html";
+        location.href = "failed.html";
       }
     }
   );
