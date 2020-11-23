@@ -73,6 +73,9 @@ document.getElementById("savedb").addEventListener("click", () => {
   let total = 0; // 合計byte数
 
   stream.on("readable", () => {
+    //Loading screen invoke
+    document.getElementById("model").style.display = "flex";
+
     let chunk;
     while ((chunk = stream.read()) !== null) {
       count++;
@@ -84,6 +87,8 @@ document.getElementById("savedb").addEventListener("click", () => {
   });
 
   stream.on("end", () => {
+    //Loading screen remove
+    document.getElementById("model").style.display = "none";
     console.log(`${count} Obtained in divided times`);
     console.log(`I got a total of ${total} bytes`);
     filelog();
