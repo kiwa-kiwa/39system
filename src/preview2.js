@@ -3,6 +3,7 @@ const iconv = require("iconv-lite");
 const savedb2 = require("./realdb");
 const filelog = require("./csvlog");
 var csv = require("csv");
+var path = require("path");
 
 //Shift to UTF
 var paths = localStorage.getItem("file");
