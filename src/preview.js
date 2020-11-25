@@ -117,12 +117,12 @@ document.getElementById("savedb").addEventListener("click", () => {
       });
 
       stream.on("end", () => {
+        filelog();
         //Loading screen remove
         document.getElementById("model").style.display = "none";
         console.log(`${count} Obtained in divided times`);
         console.log(`I got a total of ${total} bytes`);
         fs.unlinkSync(newfilepath);
-        filelog();
       });
     });
 
