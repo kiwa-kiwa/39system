@@ -69,7 +69,8 @@ document.getElementById("savedb").addEventListener("click", () => {
   document.getElementById("model").style.display = "flex";
   //Creating new csv
   var ws = fs.createWriteStream("new" + filename); //出力ファイル名は new+元ファイル名
-  const newfilepath = path.join(__dirname, "..") + "\\new" + filename;
+  const newfilepath = path.join(__dirname, "../../../") + "\\new" + filename; // For Production
+  const newfilepath = path.join(__dirname, "..") + "\\new" + filename; // For Development
 
   var parser = csv
     .parse({ trim: true }, function (err, data) {
