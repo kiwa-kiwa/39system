@@ -1,9 +1,9 @@
 const fs = require("fs");
 const iconv = require("iconv-lite");
 const savedb2 = require("./realdb");
-const filelog = require("./csvlog");
 var csv = require("csv");
 var path = require("path");
+const filelog = require("./csvlog");
 
 //Shift to UTF
 var paths = localStorage.getItem("file");
@@ -104,6 +104,7 @@ document.getElementById("savedb").addEventListener("click", () => {
 
       let count = 0; // 読み込み回数
       let total = 0; // 合計byte数
+      var datas = [];
 
       stream.on("readable", () => {
         let chunk;
@@ -117,12 +118,13 @@ document.getElementById("savedb").addEventListener("click", () => {
       });
 
       stream.on("end", () => {
-        filelog();
+        savedb2(datas);
         //Loading screen remove
         document.getElementById("model").style.display = "none";
         console.log(`${count} Obtained in divided times`);
         console.log(`I got a total of ${total} bytes`);
         fs.unlinkSync(newfilepath);
+        filelog();
       });
     });
 

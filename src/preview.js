@@ -1,9 +1,9 @@
 const fs = require("fs");
 const iconv = require("iconv-lite");
-const filelog = require("./csvlog");
 const savedb1 = require("./ecdb");
 var csv = require("csv");
 var path = require("path");
+const filelog = require("./csvlog");
 
 //Shift to UTF
 var paths = localStorage.getItem("file");

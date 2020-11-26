@@ -1,9 +1,10 @@
 const connection = require("../config");
+const filelog = require("./csvlog");
 
 //Saving To DB
 function savedb2(row) {
   // Making the array suitable for the MYSQL query
-  var result = row.reduce(function (cl, a, currIndex, arr) {
+  var result = result.reduce(function (cl, a, currIndex, arr) {
     return (
       cl +
       (currIndex == 0 ? "" : ",") +
