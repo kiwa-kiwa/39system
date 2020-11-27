@@ -1,5 +1,6 @@
 const path = require("path");
 var $ = require("jquery");
+const getdata = require("./getdata");
 require("datatables.net")(window, $);
 
 //EC CLick
@@ -14,15 +15,7 @@ document.getElementById("vc").addEventListener("click", () => {
   window.location.href = upload;
 });
 
-$("#example").DataTable({
-  searching: false,
-  lengthChange: false,
-  ordering: false,
-  info: false,
-  language: {
-    oPaginate: {
-      sNext: ">>",
-      sPrevious: "<<",
-    },
-  },
+//Get Data click
+document.getElementById("getdata").addEventListener("click", () => {
+  getdata();
 });
