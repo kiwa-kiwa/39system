@@ -117,7 +117,7 @@ document.getElementById("savedb").addEventListener("click", () => {
           total += chunk.length;
           //Spliting lines by delimiter comma
           var result = chunk.toString("utf-8").split(",");
-          ret = avedb1(result);
+          ret = savedb1(result);
         }
       });
 
@@ -125,8 +125,7 @@ document.getElementById("savedb").addEventListener("click", () => {
         console.log(`${count} Obtained in divided times`);
         console.log(`I got a total of ${total} bytes`);
         fs.unlinkSync(newfilepath);
-        alert(ret + " Rows failed to insert");
-        filelog();
+        filelog(ret);
       });
     });
 

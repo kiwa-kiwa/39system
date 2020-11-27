@@ -91,13 +91,12 @@ header {
   display: none;
   justify-content: center;
   align-items: center;
-  height: 100%;
   position: absolute;
   background: #eeeeeed9;
   width: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  height: 100%;
+  top: 0;
+  left: 0;
   flex-wrap: wrap;
   .info {
     width: 100%;

@@ -6,7 +6,7 @@ var filename = "'" + file_name.replace(/^.*[\\\/]/, "") + "'";
 
 //Insert File Log in Import Databse
 
-function filelog() {
+function filelog(ret) {
   connection.query(
     `INSERT INTO e_csv_import (
           file_name,
@@ -18,6 +18,7 @@ function filelog() {
       if (err) {
         throw err;
       } else {
+        alert(ret + " Rows failed to insert");
         location.href = "success.html";
       }
     }

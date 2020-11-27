@@ -125,8 +125,7 @@ document.getElementById("savedb").addEventListener("click", () => {
         console.log(`${count} Obtained in divided times`);
         console.log(`I got a total of ${total} bytes`);
         fs.unlinkSync(newfilepath);
-        alert(ret + " Rows failed to insert");
-        filelog();
+        filelog(ret);
       });
     });
 
