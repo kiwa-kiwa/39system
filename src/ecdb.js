@@ -1,5 +1,7 @@
 const connection = require("../config");
 
+var failed = 0;
+
 //Saving To DB
 function savedb1(row) {
   // Making the array suitable for the MYSQL query
@@ -106,10 +108,11 @@ function savedb1(row) {
          ${result}`,
     function (err, result) {
       if (err) {
-        location.href = "failed.html";
+        failed = failed + 1;
       }
     }
   );
+  return failed;
 }
 
 module.exports = savedb1;

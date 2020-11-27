@@ -70,10 +70,10 @@ document.getElementById("savedb").addEventListener("click", () => {
   //Creating new csv
   var ws = fs.createWriteStream("new" + filename); //出力ファイル名は new+元ファイル名
 
-  const newfilepath = path.join(__dirname, "../../../") + "\\new" + filename; // For Production
-  const newfilepath = path.join(__dirname, "..") + "\\new" + filename; // For Development
-
-  console.log(newfilepath);
+  // For Production
+  //const newfilepath = path.join(__dirname, "../../../") + "\\new" + filename;
+  // For Development
+  const newfilepath = path.join(__dirname, "..") + "\\new" + filename;
 
   var parser = csv
     .parse({ trim: true }, function (err, data) {
@@ -108,7 +108,7 @@ document.getElementById("savedb").addEventListener("click", () => {
 
       let count = 0; // 読み込み回数
       let total = 0; // 合計byte数
-      var datas = [];
+      var ret; // Gets error Count
 
       stream.on("readable", () => {
         let chunk;
@@ -117,17 +117,15 @@ document.getElementById("savedb").addEventListener("click", () => {
           total += chunk.length;
           //Spliting lines by delimiter comma
           var result = chunk.toString("utf-8").split(",");
-          savedb2(result);
+          ret = savedb2(result);
         }
       });
 
       stream.on("end", () => {
-        savedb2(datas);
-        //Loading screen remove
-        document.getElementById("model").style.display = "none";
         console.log(`${count} Obtained in divided times`);
         console.log(`I got a total of ${total} bytes`);
         fs.unlinkSync(newfilepath);
+        alert(ret + " Rows failed to insert");
         filelog();
       });
     });

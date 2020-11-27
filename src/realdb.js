@@ -1,5 +1,6 @@
 const connection = require("../config");
-const filelog = require("./csvlog");
+
+var failed = 0;
 
 //Saving To DB
 function savedb2(row) {
@@ -35,10 +36,11 @@ function savedb2(row) {
            ${result}`,
     function (err, result) {
       if (err) {
-        location.href = "failed.html";
+        failed = failed + 1;
       }
     }
   );
+  return failed;
 }
 
 module.exports = savedb2;
