@@ -7,9 +7,35 @@ var data = [];
 
 //Saving To DB
 function getdata(from, to, type) {
-  console.log(type);
+  var ask;
+  if (
+    type.indexOf("common") > -1 &&
+    type.indexOf("real") > -1 &&
+    type.indexOf("ec") > -1
+  ) {
+    ask = "view.customer_category = view.customer_category";
+  } else if (type.indexOf("common") > -1 && type.indexOf("real") > -1) {
+    ask = `view.customer_category = 'COMMON'
+    OR view.customer_category = 'REAL'`;
+  } else if (type.indexOf("real") > -1 && type.indexOf("ec") > -1) {
+    ask = `view.customer_category = 'EC'
+    OR view.customer_category = 'REAL'`;
+  } else if (type.indexOf("ec") > -1 && type.indexOf("common") > -1) {
+    ask = `view.customer_category = 'EC'
+    OR view.customer_category = 'COMMON'`;
+  } else if (type.indexOf("common") > -1) {
+    ask = `view.customer_category = 'COMMON'`;
+  } else if (type.indexOf("real") > -1) {
+    ask = `view.customer_category = 'REAL'`;
+  } else if (type.indexOf("ec") > -1) {
+    ask = `view.customer_category = 'EC'`;
+  } else {
+    ask = "view.customer_category = view.customer_category";
+  }
+
   document.getElementById("loading").style.display = "flex";
-  var query = connection.query(`SELECT 
+  var query = connection.query(
+    `SELECT 
   case 
     when view.customer_category = 'COMMON' then '共通会員' 
     when view.customer_category = 'REAL' then '店舗のみ会員' 
@@ -121,19 +147,10 @@ function getdata(from, to, type) {
   ) as view
   
   where 
-  
-  /* 全て(ALL_KEY) */
-  view.customer_category = view.customer_category
-  
-  /* 共通会員(COMMON_KEY) */
-  OR view.customer_category = 'COMMON'
-  
-  /* 店舗のみ会員(REAL_KEY) */
-  OR view.customer_category = 'REAL'
-  
-  /* ECのみ会員(EC_KEY) */
-  OR view.customer_category = 'EC'
-  
+  ` +
+      `
+ 
+  ${ask}
   GROUP BY 
   view.customer_category 
   ,view.customer_name 
@@ -142,7 +159,8 @@ function getdata(from, to, type) {
   
   
   
-  ;`);
+  ;`
+  );
   query
     .on("error", function (err) {
       // Handle error, an 'end' event will be emitted after this as well
