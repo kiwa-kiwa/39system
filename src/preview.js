@@ -71,9 +71,9 @@ document.getElementById("savedb").addEventListener("click", () => {
   var ws = fs.createWriteStream("new" + filename); //出力ファイル名は new+元ファイル名
 
   // For Production
-  const newfilepath = path.join(__dirname, "../../../") + "\\new" + filename;
+  //const newfilepath = path.join(__dirname, "../../../") + "\\new" + filename;
   // For Development
-  //const newfilepath = path.join(__dirname, "..") + "\\new" + filename;
+  const newfilepath = path.join(__dirname, "..") + "\\new" + filename;
 
   var parser = csv
     .parse({ trim: true }, function (err, data) {

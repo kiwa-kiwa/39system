@@ -55,24 +55,33 @@ section.table {
   #tbl-cont {
     overflow-x: scroll;
   }
-  #nav {
+  #data_paginate {
     padding: 2em 0;
     display: flex;
     a {
-      background: #fff;
-      padding: 0.8em;
-      text-decoration: none;
-      color: #000;
-      border-top: 1px solid #c5c5c5;
-      border-left: 1px solid #c5c5c5;
-      border-bottom: 1px solid #c5c5c5;
-      &:last-child {
-        border-right: 1px solid #c5c5c5;
-      }
+      margin: 0 1em;
     }
-    a.active {
-      background-color: #000;
-      color: #fff;
+    span {
+      a {
+        margin: 0;
+        background: #fff;
+        padding: 0.8em;
+        text-decoration: none;
+        color: #000;
+        border-top: 1px solid #c5c5c5;
+        border-right: 1px solid #c5c5c5;
+        border-bottom: 1px solid #c5c5c5;
+        &:first-child {
+          border-left: 1px solid #c5c5c5;
+        }
+        &:last-child {
+          border-left: 1px solid #c5c5c5;
+        }
+      }
+      a.current {
+        background-color: #000;
+        color: #fff;
+      }
     }
   }
   table {
@@ -120,4 +129,13 @@ button {
     }
     height: 20px;
   }
+}
+
+.refresh {
+  padding: 0.5em 1em;
+  background-color: $primary-color;
+  color: #fff;
+  font-size: 1em;
+  margin: 1em 0 2em;
+  border: 0;
 }

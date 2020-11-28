@@ -16,6 +16,20 @@ document.getElementById("vc").addEventListener("click", () => {
 });
 
 //Get Data click
-document.getElementById("getdata").addEventListener("click", () => {
-  getdata();
+document.getElementById("getdata").addEventListener("click", (e) => {
+  e.preventDefault();
+  var a = $("form").serializeArray();
+  var from;
+  var to;
+  var type = [];
+  a.forEach((data) => {
+    if (data.name === "from") {
+      from = data.value;
+    } else if (data.name === "to") {
+      to = data.value;
+    } else if (data.name === "customer_category") {
+      type.push(data.value);
+    }
+  });
+  getdata(from, to, type);
 });

@@ -23,10 +23,10 @@
         <h2>顧客一覧</h2>
         <div class="boxes">
           <button class="blck-btn" id="ec">
-            EC会員情報をエクセルで登録する
+            EC会員情報をCSVで登録する
           </button>
           <button class="blck-btn" id="vc">
-            店舗会員情報をエクセルで登録する
+            店舗会員情報をCSVで登録する
           </button>
         </div>
       </div>
@@ -34,86 +34,59 @@
 
     <section class="inputters">
       <h2>1.会員種別を選択 <span>必須</span></h2>
-      <div class="radio-cont mb-4">
-        <div class="radio-item">
-          <input type="radio" id="all" name="filter" value="all" checked />
+      <form id="srchform">
+      <div class="checkbox-cont mb-4">
+        <div class="checkbox-item">
+          <input type="checkbox" id="all" name="customer_category" value="all" checked />
           <label for="all"> 全て</label>
         </div>
-        <div class="radio-item">
-          <input type="radio" id="common" name="filter" value="common" />
+        <div class="checkbox-item">
+          <input type="checkbox" id="common" name="customer_category" value="common" />
           <label for="common"> 共通会員</label>
         </div>
-        <div class="radio-item">
-          <input type="radio" id="store" name="filter" value="store" />
+        <div class="checkbox-item">
+          <input type="checkbox" id="store" name="customer_category" value="store" />
           <label for="store"> 店舗のみ会員</label>
         </div>
-        <div class="radio-item">
-          <input type="radio" id="ec" name="filter" value="ec" />
+        <div class="checkbox-item">
+          <input type="checkbox" id="ec" name="customer_category" value="ec" />
           <label for="ec"> ECのみ会員</label>
         </div>
       </div>
       <h2>5.購入月を選択 <span>必須</span></h2>
       <div class="date-cont">
-        <input type="date" name="" id="" />
+        <input type="month" name="from" id="Start" value="2020-06"/>
         <span>~</span>
-        <input type="date" name="" id="" />
+        <input type="month" name="to" id="End" value="2020-07"/>
       </div>
       <button class="filterbtn" id="getdata">
         <i class="fa fa-search"></i> 検索する
-      </button>
+      </button></form>
     </section>
 
     <section class="result">
       <h2>検索結果</h2>
       <small>サマリー</small>
       <div class="row">
-        <div class="res-item">
+        <div class="res-item" id="member">
           <h3>会員数</h3>
-          <div class="head">
+          <div class="head" >
             <span>総合計</span>
-            <span>1000 名</span>
-          </div>
-          <div class="res">
-            <span>店舗のみ会員合計</span>
-            <span>300 名</span>
-          </div>
-          <div class="res">
-            <span>ECのみ会員合計</span>
-            <span>300 名</span>
-          </div>
-          <div class="res">
-            <span>共通会員</span>
-            <span>400 名</span>
+            <span id="member_total"></span>
           </div>
         </div>
-        <div class="res-item">
+        <div class="res-item" id="money">
           <h3>購入金額</h3>
           <div class="head">
             <span>総合計</span>
-            <span>4,666,579円</span>
-          </div>
-          <div class="res">
-            <span>店舗</span>
-            <span>XXX 円</span>
-          </div>
-          <div class="res">
-            <span>EC</span>
-            <span>XXX 円</span>
+            <span id="money_total"></span>
           </div>
         </div>
-        <div class="res-item">
+        <div class="res-item" id="payment-item">
           <h3>購入金額</h3>
           <div class="head">
             <span>購入金額</span>
-            <span>788点</span>
-          </div>
-          <div class="res">
-            <span>店舗</span>
-            <span>XXX 円</span>
-          </div>
-          <div class="res">
-            <span>EC</span>
-            <span>XXX 円</span>
+            <span id="item_total"></span>
           </div>
         </div>
       </div>
@@ -124,26 +97,27 @@
       <div id="tbl-cont">
       <table id="data">
         <thead>
-          <tr>
-            <th>customer_cotegory</th>
-            <th>customer_name</th>
-            <th>age</th>
-            <th>customer_tel</th>
-            <th>postal_code</th>
-            <th>address</th>
-            <th>payment_date</th>
-            <th>payment_money_sum</th>
+          <tr>            
+            <th>エリア</th>
+            <th>会員種別</th>
+            <th>名前</th>
+            <th>年齢</th>
+            <th>購入月</th>
+            <th>郵便番号</th>
+            <th>電話番号</th>
+            <th>EC Name</th>
+            <th>payment_item_cnt_ec_sum</th>
+            <th>payment_item_cnt_real_sum</th>
             <th>payment_item_cnt_sum</th>
-            <th>payment_item_cnt_ec_sum</th>
-            <th>payment_money_real_item_cnt_sum</th>
             <th>payment_money_ec_sum</th>
-            <th>payment_item_cnt_ec_sum</th>
-            <th>ec_name</th>
+            <th>payment_money_real_sum</th>
+            <th>payment_money_sum</th>
           </tr>
         </thead>
         <tbody id="testtbl"></tbody></div>
       </table>
     </section>
+    <button class="refresh" onclick="window.location.reload()">Clear Table and Datas</button>
     <div id="loading">Wait Loading</div>
     <script src="./index.js" type="module"></script>
   </body>

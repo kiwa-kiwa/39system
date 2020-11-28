@@ -141,7 +141,7 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  position: absolute;
+  position: fixed;
   background: #eeeeeed9;
   width: 100%;
   height: 100%;
@@ -220,13 +220,13 @@ section.inputters h2 span {
   padding: 0.3em;
 }
 
-section.inputters .radio-cont {
+section.inputters .checkbox-cont {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-section.inputters .radio-cont .radio-item {
+section.inputters .checkbox-cont .checkbox-item {
   margin-right: 1em;
 }
 
@@ -378,28 +378,37 @@ section.table #tbl-cont {
   overflow-x: scroll;
 }
 
-section.table #nav {
+section.table #data_paginate {
   padding: 2em 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-section.table #nav a {
+section.table #data_paginate a {
+  margin: 0 1em;
+}
+
+section.table #data_paginate span a {
+  margin: 0;
   background: #fff;
   padding: 0.8em;
   text-decoration: none;
   color: #000;
   border-top: 1px solid #c5c5c5;
-  border-left: 1px solid #c5c5c5;
+  border-right: 1px solid #c5c5c5;
   border-bottom: 1px solid #c5c5c5;
 }
 
-section.table #nav a:last-child {
-  border-right: 1px solid #c5c5c5;
+section.table #data_paginate span a:first-child {
+  border-left: 1px solid #c5c5c5;
 }
 
-section.table #nav a.active {
+section.table #data_paginate span a:last-child {
+  border-left: 1px solid #c5c5c5;
+}
+
+section.table #data_paginate span a.current {
   background-color: #000;
   color: #fff;
 }
@@ -445,6 +454,15 @@ button:focus {
 
 #testtbl #spacer:nth-child(1) {
   background-color: #e5e5e5;
+}
+
+.refresh {
+  padding: 0.5em 1em;
+  background-color: #000;
+  color: #fff;
+  font-size: 1em;
+  margin: 1em 0 2em;
+  border: 0;
 }
 
 @media screen and (max-width: 426px) {
