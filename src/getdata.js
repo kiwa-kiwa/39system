@@ -225,23 +225,23 @@ function getdata(from, to, type) {
   function createTable(tableData) {
     var row = $("<tr />");
     $("#testtbl").append(row);
-    row.append($("<td>" + tableData.EC店舗名 + "</td>"));
-    row.append($("<td>" + tableData.アプリ会員 + "</td>"));
-    row.append($("<td>" + tableData.エリア + "</td>"));
     row.append($("<td>" + tableData.会員種別 + "</td>"));
     row.append($("<td>" + tableData.名前 + "</td>"));
     row.append($("<td>" + tableData.年齢 + "</td>"));
+    row.append($("<td>" + tableData.電話番号 + "</td>"));
+    row.append($("<td>" + tableData.郵便番号 + "</td>"));
+    row.append($("<td>" + tableData.エリア + "</td>"));
+    row.append($("<td>" + tableData.購入月 + "</td>"));
+    row.append($("<td>" + tableData.購入金額_合計 + "</td>"));
+    row.append($("<td>" + tableData.購入点数_合計 + "</td>"));
+    row.append($("<td>" + tableData.購入金額_店舗 + "</td>"));
+    row.append($("<td>" + tableData.購入点数_店舗 + "</td>"));
+    row.append($("<td>" + tableData.EC店舗名 + "</td>"));
+    row.append($("<td>" + tableData.アプリ会員 + "</td>"));
     row.append($("<td>" + tableData.店コード + "</td>"));
     row.append($("<td>" + tableData.店舗名称 + "</td>"));
-    row.append($("<td>" + tableData.購入月 + "</td>"));
     row.append($("<td>" + tableData.購入点数_EC + "</td>"));
-    row.append($("<td>" + tableData.購入点数_合計 + "</td>"));
-    row.append($("<td>" + tableData.購入点数_店舗 + "</td>"));
     row.append($("<td>" + tableData.購入金額_EC + "</td>"));
-    row.append($("<td>" + tableData.購入金額_合計 + "</td>"));
-    row.append($("<td>" + tableData.購入金額_店舗 + "</td>"));
-    row.append($("<td>" + tableData.郵便番号 + "</td>"));
-    row.append($("<td>" + tableData.電話番号 + "</td>"));
   }
 }
 
