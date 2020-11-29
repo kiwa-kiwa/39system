@@ -176,6 +176,7 @@ function getmoney(from, to, type) {
       $(
         "<span class='money_cnt'>" +
           tableData.payment_money_sum.toLocaleString() +
+          " 円" +
           "</span>"
       )
     );

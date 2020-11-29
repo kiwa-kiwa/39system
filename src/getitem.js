@@ -174,6 +174,7 @@ function getitem(from, to, type) {
       $(
         "<span class='item_cnt'>" +
           tableData.payment_item_cnt_sum.toLocaleString() +
+          " 点" +
           "</span>"
       )
     );

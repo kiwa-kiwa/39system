@@ -175,6 +175,7 @@ function getmember(from, to, type) {
       $(
         "<span class='member_cnt'>" +
           tableData.member_cnt.toLocaleString() +
+          " 名" +
           "</span>"
       )
     );
