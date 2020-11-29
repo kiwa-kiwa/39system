@@ -160,9 +160,11 @@ function getmoney(from, to, type) {
       }
       var sum = 0;
       $(".money_cnt").each(function () {
-        sum += parseFloat($(this).text()); // Or this.innerHTML, this.innerText
+        sum += parseFloat($(this).text().replace(/\D/g, "")); // Or this.innerHTML, this.innerText
       });
-      $("#money_total").append($("<div></div>").text(sum + " 円"));
+      $("#money_total").append(
+        $("<div></div>").text(sum.toLocaleString() + " 円")
+      );
     });
 
   //A function that renders the table after the file is loaded
@@ -171,7 +173,11 @@ function getmoney(from, to, type) {
     $("#money").append(row);
     row.append($("<span>" + tableData.customer_category + "</span>"));
     row.append(
-      $("<span class='money_cnt'>" + tableData.payment_money_sum + "</span>")
+      $(
+        "<span class='money_cnt'>" +
+          tableData.payment_money_sum.toLocaleString() +
+          "</span>"
+      )
     );
   }
 }

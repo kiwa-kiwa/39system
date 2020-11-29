@@ -160,7 +160,7 @@ function getitem(from, to, type) {
       }
       var sum = 0;
       $(".item_cnt").each(function () {
-        sum += parseFloat($(this).text()); // Or this.innerHTML, this.innerText
+        sum += parseFloat($(this).text().replace(/\D/g, "")); // Or this.innerHTML, this.innerText
       });
       $("#item_total").append($("<div></div>").text(sum + " 点"));
     });
@@ -171,7 +171,11 @@ function getitem(from, to, type) {
     $("#payment-item").append(row);
     row.append($("<span>" + tableData.customer_category + "</span>"));
     row.append(
-      $("<span class='item_cnt'>" + tableData.payment_item_cnt_sum + "</span>")
+      $(
+        "<span class='item_cnt'>" +
+          tableData.payment_item_cnt_sum.toLocaleString() +
+          "</span>"
+      )
     );
   }
 }

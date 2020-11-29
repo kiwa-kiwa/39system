@@ -159,9 +159,11 @@ function getmember(from, to, type) {
       }
       var sum = 0;
       $(".member_cnt").each(function () {
-        sum += parseFloat($(this).text()); // Or this.innerHTML, this.innerText
+        sum += parseFloat($(this).text().replace(/\D/g, "")); // Or this.innerHTML, this.innerText
       });
-      $("#member_total").append($("<div></div>").text(sum + " 名"));
+      $("#member_total").append(
+        $("<div></div>").text(sum.toLocaleString() + " 名")
+      );
     });
 
   //A function that renders the table after the file is loaded
@@ -170,7 +172,11 @@ function getmember(from, to, type) {
     $("#member").append(row);
     row.append($("<span>" + tableData.customer_category + "</span>"));
     row.append(
-      $("<span class='member_cnt'>" + tableData.member_cnt + "</span>")
+      $(
+        "<span class='member_cnt'>" +
+          tableData.member_cnt.toLocaleString() +
+          "</span>"
+      )
     );
   }
 }
