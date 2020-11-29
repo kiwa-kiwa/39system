@@ -36,130 +36,148 @@ function getdata(from, to, type) {
   document.getElementById("loading").style.display = "flex";
   var query = connection.query(
     `SELECT 
-  case 
-    when view.customer_category = 'COMMON' then '共通会員' 
-    when view.customer_category = 'REAL' then '店舗のみ会員' 
-    when view.customer_category = 'EC' then 'ECのみ会員' 
-      else view.customer_category 
-  end as '会員種別'
-  ,view.customer_name as '名前' 
-  ,max(view.age) as '年齢'  
-  , GROUP_CONCAT(DISTINCT view.customer_tel SEPARATOR ',') AS '電話番号'
-  , GROUP_CONCAT(DISTINCT view.postal_code SEPARATOR ',') AS '郵便番号' 
-  ,view.address as 'エリア'
-  ,GROUP_CONCAT(DISTINCT replace(view.payment_date,'-','/') SEPARATOR ',') as '購入月' 
-  ,sum(view.payment_money_sum) as payment_money_sum
-  ,sum(view.payment_item_cnt_sum) as payment_item_cnt_sum
-  
-  ,sum(view.payment_money_real_sum) as payment_money_real_sum
-  ,sum(view.payment_item_cnt_real_sum) as payment_item_cnt_real_sum
-  
-  ,sum(view.payment_money_ec_sum) as payment_money_ec_sum
-  ,sum(view.payment_item_cnt_ec_sum) as payment_item_cnt_ec_sum
-  ,max(view.ec_name) as ec_name 
-  
-  FROM 
-  (
-      SELECT         
-          
-          CASE WHEN EXISTS(select * FROM e_ec_sales WHERE e_ec_sales.customer_name = e_real_sales.customer_name AND (replace(e_ec_sales.customer_postal_code,'-','') = e_real_sales.customer_postal_code OR replace(e_ec_sales.customer_tel,'-','') = replace(e_real_sales.customer_tel1,'-','') ) ) = true THEN 'COMMON' ELSE 'REAL' END  AS customer_category,
-          
-          e_real_sales.customer_name AS customer_name,
-          TIMESTAMPDIFF(YEAR,
-              (CASE e_real_sales.customer_birthday
-                  WHEN '1900-01-01' THEN 0
-                  ELSE e_real_sales.customer_birthday
-              END),
-              CURDATE()) AS age,
-          e_real_sales.customer_tel1 AS customer_tel,
-          CONCAT(LEFT(e_real_sales.customer_postal_code,
-                      3),
-                  '-',
-                  RIGHT(e_real_sales.customer_postal_code,
-                      4)) AS postal_code,
-          CONCAT(r_zip.ken_name,
-                  r_zip.city_name) AS address,
-          LEFT(e_real_sales.payment_date,
-              7) AS payment_date,
-          SUM(e_real_sales.payment_money) AS payment_money_sum,
-          SUM(e_real_sales.payment_item_cnt) AS payment_item_cnt_sum,
-          SUM(e_real_sales.payment_money) AS payment_money_real_sum,
-          SUM(e_real_sales.payment_item_cnt) AS payment_item_cnt_real_sum,
-          0 AS payment_money_ec_sum,
-          0 AS payment_item_cnt_ec_sum,
-          '' AS ec_name
-      FROM
-          (e_real_sales
-          LEFT JOIN r_zip ON ((e_real_sales.customer_postal_code = CONVERT( r_zip.zip_key USING UTF8MB4))))
-      WHERE  LEFT(e_real_sales.payment_date,7) >= '${from}' AND LEFT(e_real_sales.payment_date,7) <= '${to}' /* DATE_KEY(YYYY-MM) */
-          
-      GROUP BY e_real_sales.customer_name , TIMESTAMPDIFF(YEAR,
-          (CASE e_real_sales.customer_birthday
-              WHEN '1900-01-01' THEN 0
-              ELSE e_real_sales.customer_birthday
-          END),
-          CURDATE()) , e_real_sales.customer_tel1 , CONCAT(LEFT(e_real_sales.customer_postal_code,
-                  3),
-              '-',
-              RIGHT(e_real_sales.customer_postal_code,
-                  4)) , CONCAT(r_zip.ken_name,
-              r_zip.city_name) , LEFT(e_real_sales.payment_date,
-          7) 
-      UNION ALL SELECT 
-          
-      CASE WHEN EXISTS(select * FROM e_real_sales WHERE e_ec_sales.customer_name = e_real_sales.customer_name AND ( replace(e_ec_sales.customer_postal_code,'-','') = e_real_sales.customer_postal_code OR replace(e_ec_sales.customer_tel,'-','') = replace(e_real_sales.customer_tel1,'-','') ) ) = true THEN 'COMMON' ELSE 'EC' END  AS customer_category,
-      
-          e_ec_sales.customer_name AS customer_name,
-          0 AS age,
-          e_ec_sales.customer_tel AS customer_tel,
-          e_ec_sales.customer_postal_code AS postal_code,
-          CONCAT(r_zip.ken_name,
-                  r_zip.city_name) AS address,
-          DATE_FORMAT(e_ec_sales.order_date,
-                  '%Y-%m') AS payment_date,
-          SUM(e_ec_sales.total) AS payment_money_sum,
-          SUM(e_ec_sales.quantity) AS payment_item_cnt_sum,
-          0 AS payment_money_real_sum,
-          0 AS payment_item_cnt_real_sum,
-          SUM(e_ec_sales.total) AS payment_money_ec_sum,
-          SUM(e_ec_sales.quantity) AS payment_item_cnt_ec_sum,
-          GROUP_CONCAT(DISTINCT 
-        CASE 
-          WHEN e_ec_sales.shop_name = '[F]ダイユーエイト' THEN '自社サイト' 
-          WHEN e_ec_sales.shop_name = '[A]ダイユーエイト' THEN 'アマゾン' 
-                  WHEN e_ec_sales.shop_name = '[R]ダイユーエイト楽天市場店' THEN '楽天'
-                  WHEN e_ec_sales.shop_name = '[W]ダイユーエイト.com' THEN 'au PAY マーケット'
-                  WHEN e_ec_sales.shop_name = '[Y]ダイユーエイト.com' THEN 'Yahoo!'
-                  WHEN e_ec_sales.shop_name = '[Y]収納ナビ.com' THEN 'Yahoo!'
-                  WHEN e_ec_sales.shop_name = '[Y]ダイユーエイト.com ヤフー店' THEN 'Yahoo!'
-                  WHEN e_ec_sales.shop_name = '[ｄ]ダイユーエイト' THEN 'dショッピング'
-                  ELSE e_ec_sales.shop_name 
-        END 
-              SEPARATOR ',') AS ec_name
-      FROM
-          (e_ec_sales
-          LEFT JOIN r_zip ON ((e_ec_sales.customer_postal_code = CONVERT( r_zip.zip USING UTF8MB4))))
-          WHERE DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') >= '2020-06' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') <= '2020-07' /* DATE_KEY(YYYY-MM) */
-          
-      GROUP BY e_ec_sales.customer_name , e_ec_sales.customer_tel , e_ec_sales.customer_postal_code , CONCAT(r_zip.ken_name,
-              r_zip.city_name) , DATE_FORMAT(e_ec_sales.order_date,
-              '%Y-%m')
-  ) as view
-  
-  where 
-  ` +
+    case 
+      when view.customer_category = 'COMMON' then '共通会員' 
+      when view.customer_category = 'REAL' then '店舗のみ会員' 
+      when view.customer_category = 'EC' then 'ECのみ会員' 
+        else view.customer_category 
+    end as '会員種別'
+    ,view.customer_name as '名前' 
+    ,max(view.age) as '年齢'  
+    ,case 
+      when view.customer_category = 'COMMON' then GROUP_CONCAT(DISTINCT view.customer_tel SEPARATOR ',') 
+        else view.customer_tel 
+    end AS '電話番号' 
+    ,case 
+      when view.customer_category = 'COMMON' then GROUP_CONCAT(DISTINCT view.postal_code SEPARATOR ',') 
+        else view.postal_code 
+    end AS '郵便番号' 
+    ,view.address as 'エリア'
+    ,GROUP_CONCAT(DISTINCT replace(view.payment_date,'-','/') SEPARATOR ',') as '購入月' 
+    
+    ,sum(view.payment_money_sum) as '購入金額_合計' 
+    ,sum(view.payment_item_cnt_sum) as '購入点数_合計'
+    
+    ,sum(view.payment_money_real_sum) as '購入金額_店舗'
+    ,sum(view.payment_item_cnt_real_sum) as '購入点数_店舗'
+    
+    ,sum(view.payment_money_ec_sum) as '購入金額_EC'
+    ,sum(view.payment_item_cnt_ec_sum) as '購入点数_EC'
+    ,GROUP_CONCAT(DISTINCT view.ec_name SEPARATOR ',') as 'EC店舗名' 
+    
+    ,GROUP_CONCAT(DISTINCT view.store_id SEPARATOR ',') as '店コード' 
+    ,GROUP_CONCAT(DISTINCT view.store_name SEPARATOR ',') as '店舗名称'
+    ,case when view.mobile_e_mail = '' then '' else '〇' end as 'アプリ会員'
+    
+    FROM 
+    (
+        SELECT         
+            
+            CASE WHEN EXISTS(select * FROM e_ec_sales WHERE e_ec_sales.customer_name = e_real_sales.customer_name AND (replace(e_ec_sales.customer_postal_code,'-','') = e_real_sales.customer_postal_code OR replace(e_ec_sales.customer_tel,'-','') = replace(e_real_sales.customer_tel1,'-','') ) AND LEFT(e_real_sales.payment_date,7) >= '2020-06' AND LEFT(e_real_sales.payment_date,7) <= '2020-07' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') >= '2020-06' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') <= '2020-07' ) = true THEN 'COMMON' ELSE 'REAL' END  AS customer_category, /* DATE_KEY(YYYY-MM) */
+            
+            e_real_sales.customer_name AS customer_name,
+            TIMESTAMPDIFF(YEAR,
+                (CASE e_real_sales.customer_birthday
+                    WHEN '1900-01-01' THEN 0
+                    ELSE e_real_sales.customer_birthday
+                END),
+                CURDATE()) AS age,
+            e_real_sales.customer_tel1 AS customer_tel,
+            CONCAT(LEFT(e_real_sales.customer_postal_code,
+                        3),
+                    '-',
+                    RIGHT(e_real_sales.customer_postal_code,
+                        4)) AS postal_code,
+            CONCAT(r_zip.ken_name,
+                    r_zip.city_name) AS address,
+            LEFT(e_real_sales.payment_date,
+                7) AS payment_date,
+            SUM(e_real_sales.payment_money) AS payment_money_sum,
+            SUM(e_real_sales.payment_item_cnt) AS payment_item_cnt_sum,
+            SUM(e_real_sales.payment_money) AS payment_money_real_sum,
+            SUM(e_real_sales.payment_item_cnt) AS payment_item_cnt_real_sum,
+            0 AS payment_money_ec_sum,
+            0 AS payment_item_cnt_ec_sum,
+            null AS ec_name,
+            e_real_sales.store_id,
+        e_real_sales.store_name,
+        max(e_real_sales.mobile_e_mail) as mobile_e_mail 
+        FROM
+            (e_real_sales
+            LEFT JOIN r_zip ON ((e_real_sales.customer_postal_code = CONVERT( r_zip.zip_key USING UTF8MB4))))
+        WHERE  LEFT(e_real_sales.payment_date,7) >= '${from}' AND LEFT(e_real_sales.payment_date,7) <= '${to}' /* DATE_KEY(YYYY-MM) */
+            
+        GROUP BY e_real_sales.customer_name , TIMESTAMPDIFF(YEAR,
+            (CASE e_real_sales.customer_birthday
+                WHEN '1900-01-01' THEN 0
+                ELSE e_real_sales.customer_birthday
+            END),
+            CURDATE()) , e_real_sales.customer_tel1 , CONCAT(LEFT(e_real_sales.customer_postal_code,
+                    3),
+                '-',
+                RIGHT(e_real_sales.customer_postal_code,
+                    4)) , CONCAT(r_zip.ken_name,
+                r_zip.city_name) , LEFT(e_real_sales.payment_date,
+            7) 
+        UNION ALL SELECT 
+            
+        CASE WHEN EXISTS(select * FROM e_real_sales WHERE e_ec_sales.customer_name = e_real_sales.customer_name AND ( replace(e_ec_sales.customer_postal_code,'-','') = e_real_sales.customer_postal_code OR replace(e_ec_sales.customer_tel,'-','') = replace(e_real_sales.customer_tel1,'-','') ) AND LEFT(e_real_sales.payment_date,7) >= '2020-06' AND LEFT(e_real_sales.payment_date,7) <= '2020-07' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') >= '2020-06' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') <= '2020-07' ) = true THEN 'COMMON' ELSE 'EC' END  AS customer_category, /* DATE_KEY(YYYY-MM) */
+        
+            e_ec_sales.customer_name AS customer_name,
+            0 AS age,
+            e_ec_sales.customer_tel AS customer_tel,
+            e_ec_sales.customer_postal_code AS postal_code,
+            CONCAT(r_zip.ken_name,
+                    r_zip.city_name) AS address,
+            DATE_FORMAT(e_ec_sales.order_date,
+                    '%Y-%m') AS payment_date,
+            SUM(e_ec_sales.total) AS payment_money_sum,
+            SUM(e_ec_sales.quantity) AS payment_item_cnt_sum,
+            0 AS payment_money_real_sum,
+            0 AS payment_item_cnt_real_sum,
+            SUM(e_ec_sales.total) AS payment_money_ec_sum,
+            SUM(e_ec_sales.quantity) AS payment_item_cnt_ec_sum,
+            GROUP_CONCAT(DISTINCT 
+          CASE 
+            WHEN e_ec_sales.shop_name = '[F]ダイユーエイト' THEN '自社サイト' 
+            WHEN e_ec_sales.shop_name = '[A]ダイユーエイト' THEN 'アマゾン' 
+                    WHEN e_ec_sales.shop_name = '[R]ダイユーエイト楽天市場店' THEN '楽天'
+                    WHEN e_ec_sales.shop_name = '[W]ダイユーエイト.com' THEN 'au PAY マーケット'
+                    WHEN e_ec_sales.shop_name = '[Y]ダイユーエイト.com' THEN 'Yahoo!'
+                    WHEN e_ec_sales.shop_name = '[Y]収納ナビ.com' THEN 'Yahoo!'
+                    WHEN e_ec_sales.shop_name = '[Y]ダイユーエイト.com ヤフー店' THEN 'Yahoo!'
+                    WHEN e_ec_sales.shop_name = '[ｄ]ダイユーエイト' THEN 'dショッピング'
+                    ELSE e_ec_sales.shop_name 
+          END 
+                SEPARATOR ',') AS ec_name,
+          null as store_id,
+          null as store_name,
+          '' as mobile_e_mail 
+        FROM
+            (e_ec_sales
+            LEFT JOIN r_zip ON ((e_ec_sales.customer_postal_code = CONVERT( r_zip.zip USING UTF8MB4))))
+            WHERE DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') >= '2020-06' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') <= '2020-07' /* DATE_KEY(YYYY-MM) */
+            
+        GROUP BY e_ec_sales.customer_name , e_ec_sales.customer_tel , e_ec_sales.customer_postal_code , CONCAT(r_zip.ken_name,
+                r_zip.city_name) , DATE_FORMAT(e_ec_sales.order_date,
+                '%Y-%m')
+    ) as view
+    
+    where 
+    ` +
       `
- 
-  ${ask}
-  GROUP BY 
-  view.customer_category 
-  ,view.customer_name 
-  
-  ,view.address
-  
-  
-  
-  ;`
+    ${ask}
+    
+    
+    GROUP BY 
+    view.customer_category 
+    ,view.customer_name 
+    
+    ,view.address
+    
+    
+    
+    ;`
   );
   query
     .on("error", function (err) {
@@ -207,20 +225,23 @@ function getdata(from, to, type) {
   function createTable(tableData) {
     var row = $("<tr />");
     $("#testtbl").append(row);
+    row.append($("<td>" + tableData.EC店舗名 + "</td>"));
+    row.append($("<td>" + tableData.アプリ会員 + "</td>"));
     row.append($("<td>" + tableData.エリア + "</td>"));
     row.append($("<td>" + tableData.会員種別 + "</td>"));
     row.append($("<td>" + tableData.名前 + "</td>"));
     row.append($("<td>" + tableData.年齢 + "</td>"));
+    row.append($("<td>" + tableData.店コード + "</td>"));
+    row.append($("<td>" + tableData.店舗名称 + "</td>"));
     row.append($("<td>" + tableData.購入月 + "</td>"));
+    row.append($("<td>" + tableData.購入点数_EC + "</td>"));
+    row.append($("<td>" + tableData.購入点数_合計 + "</td>"));
+    row.append($("<td>" + tableData.購入点数_店舗 + "</td>"));
+    row.append($("<td>" + tableData.購入金額_EC + "</td>"));
+    row.append($("<td>" + tableData.購入金額_合計 + "</td>"));
+    row.append($("<td>" + tableData.購入金額_店舗 + "</td>"));
     row.append($("<td>" + tableData.郵便番号 + "</td>"));
     row.append($("<td>" + tableData.電話番号 + "</td>"));
-    row.append($("<td>" + tableData.ec_name + "</td>"));
-    row.append($("<td>" + tableData.payment_item_cnt_ec_sum + "</td>"));
-    row.append($("<td>" + tableData.payment_item_cnt_real_sum + "</td>"));
-    row.append($("<td>" + tableData.payment_item_cnt_sum + "</td>"));
-    row.append($("<td>" + tableData.payment_money_ec_sum + "</td>"));
-    row.append($("<td>" + tableData.payment_money_real_sum + "</td>"));
-    row.append($("<td>" + tableData.payment_money_sum + "</td>"));
   }
 }
 
