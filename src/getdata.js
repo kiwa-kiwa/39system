@@ -156,7 +156,7 @@ function getdata(from, to, type) {
         FROM
             (e_ec_sales
             LEFT JOIN r_zip ON ((e_ec_sales.customer_postal_code = CONVERT( r_zip.zip USING UTF8MB4))))
-            WHERE DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') >= '2020-06' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') <= '2020-07' /* DATE_KEY(YYYY-MM) */
+            WHERE DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') >= '${from}' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') <= '${to}' /* DATE_KEY(YYYY-MM) */
             
         GROUP BY e_ec_sales.customer_name , e_ec_sales.customer_tel , e_ec_sales.customer_postal_code , CONCAT(r_zip.ken_name,
                 r_zip.city_name) , DATE_FORMAT(e_ec_sales.order_date,
@@ -202,6 +202,17 @@ function getdata(from, to, type) {
       for (var i = 0; i < data.length; i++) {
         createTable(data[i]);
       }
+      //Replacinf the null with blank
+      var x = document.querySelectorAll("#td");
+      for (var i = 0; i < x.length; i++) {
+        var res = x[i].innerHTML.replace(/null/gi, "");
+        x[i].innerHTML = res;
+      }
+      //Caling other queries
+      getmember(from, to);
+      getmoney(from, to);
+      getitem(from, to);
+      //Make Table
       $("#data").DataTable({
         searching: false,
         lengthChange: false,
@@ -216,16 +227,6 @@ function getdata(from, to, type) {
           },
         },
       });
-      //Replacinf the null with blank
-      var x = document.querySelectorAll("#td");
-      for (var i = 0; i < x.length; i++) {
-        var res = x[i].innerHTML.replace(/null/gi, "");
-        x[i].innerHTML = res;
-      }
-      //Caling other queries
-      getmember(from, to, type);
-      getmoney(from, to, type);
-      getitem(from, to, type);
     });
 
   //A function that renders the table after the file is loaded
@@ -234,21 +235,57 @@ function getdata(from, to, type) {
     $("#testtbl").append(row);
     row.append($("<td id='td'>" + tableData.会員種別 + "</td>"));
     row.append($("<td id='td'>" + tableData.名前 + "</td>"));
-    row.append($("<td id='td'>" + tableData.年齢 + "</td>"));
-    row.append($("<td id='td'>" + tableData.電話番号 + "</td>"));
-    row.append($("<td id='td'>" + tableData.郵便番号 + "</td>"));
+    row.append($("<td id='td' class='numtd'>" + tableData.年齢 + "</td>"));
+    row.append($("<td id='td' class='numtd'>" + tableData.電話番号 + "</td>"));
+    row.append($("<td id='td' class='numtd'>" + tableData.郵便番号 + "</td>"));
     row.append($("<td id='td'>" + tableData.エリア + "</td>"));
-    row.append($("<td id='td'>" + tableData.購入月 + "</td>"));
-    row.append($("<td id='td'>" + tableData.購入金額_合計 + "</td>"));
-    row.append($("<td id='td'>" + tableData.購入点数_合計 + "</td>"));
-    row.append($("<td id='td'>" + tableData.購入金額_店舗 + "</td>"));
-    row.append($("<td id='td'>" + tableData.購入点数_店舗 + "</td>"));
+    row.append($("<td id='td' class='numtd'>" + tableData.購入月 + "</td>"));
+    row.append(
+      $(
+        "<td id='td' class='numtd'>" +
+          tableData.購入金額_合計.toLocaleString() +
+          "</td>"
+      )
+    );
+    row.append(
+      $(
+        "<td id='td' class='numtd'>" +
+          tableData.購入点数_合計.toLocaleString() +
+          "</td>"
+      )
+    );
+    row.append(
+      $(
+        "<td id='td' class='numtd'>" +
+          tableData.購入金額_店舗.toLocaleString() +
+          "</td>"
+      )
+    );
+    row.append(
+      $(
+        "<td id='td' class='numtd'>" +
+          tableData.購入点数_店舗.toLocaleString() +
+          "</td>"
+      )
+    );
+    row.append(
+      $(
+        "<td id='td' class='numtd'>" +
+          tableData.購入金額_EC.toLocaleString() +
+          "</td>"
+      )
+    );
+    row.append(
+      $(
+        "<td id='td' class='numtd'>" +
+          tableData.購入点数_EC.toLocaleString() +
+          "</td>"
+      )
+    );
     row.append($("<td id='td'>" + tableData.EC店舗名 + "</td>"));
-    row.append($("<td id='td'>" + tableData.アプリ会員 + "</td>"));
     row.append($("<td id='td'>" + tableData.店コード + "</td>"));
     row.append($("<td id='td'>" + tableData.店舗名称 + "</td>"));
-    row.append($("<td id='td'>" + tableData.購入点数_EC + "</td>"));
-    row.append($("<td id='td'>" + tableData.購入金額_EC + "</td>"));
+    row.append($("<td id='td'>" + tableData.アプリ会員 + "</td>"));
   }
 }
 

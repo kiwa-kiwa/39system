@@ -116,7 +116,7 @@ function getitem(from, to, type) {
       FROM
           (e_ec_sales
           LEFT JOIN r_zip ON ((e_ec_sales.customer_postal_code = CONVERT( r_zip.zip USING UTF8MB4))))
-          WHERE DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') >= '2020-03' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') <= '2020-07' /* DATE_KEY(YYYY-MM) */
+          WHERE DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') >= '${from}' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') <= '${to}' /* DATE_KEY(YYYY-MM) */
       GROUP BY e_ec_sales.customer_name , e_ec_sales.customer_tel , e_ec_sales.customer_postal_code , CONCAT(r_zip.ken_name,
               r_zip.city_name) , DATE_FORMAT(e_ec_sales.order_date,
               '%Y-%m')

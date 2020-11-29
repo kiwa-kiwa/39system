@@ -465,6 +465,10 @@ button:focus {
   border: 0;
 }
 
+.numtd {
+  text-align: right;
+}
+
 @media screen and (max-width: 426px) {
   header .row {
     -webkit-box-pack: center;

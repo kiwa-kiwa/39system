@@ -18,7 +18,7 @@ function filelog(ret) {
       if (err) {
         throw err;
       } else {
-        alert(ret + " Rows failed to insert");
+        // alert(ret + " Rows failed to insert");
         location.href = "success.html";
       }
     }
