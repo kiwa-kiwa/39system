@@ -68,7 +68,7 @@ function getitem(from, to, type) {
       FROM
           (e_real_sales
           LEFT JOIN r_zip ON ((e_real_sales.customer_postal_code = CONVERT( r_zip.zip_key USING UTF8MB4))))
-          WHERE  LEFT(e_real_sales.payment_date,7) >= '2020-06' AND LEFT(e_real_sales.payment_date,7) <= '2020-07' /* DATE_KEY(YYYY-MM) */
+          WHERE  LEFT(e_real_sales.payment_date,7) >= '${from}' AND LEFT(e_real_sales.payment_date,7) <= '${to}' /* DATE_KEY(YYYY-MM) */
           
       GROUP BY e_real_sales.customer_name , TIMESTAMPDIFF(YEAR,
           (CASE e_real_sales.customer_birthday
@@ -158,11 +158,11 @@ function getitem(from, to, type) {
       for (var i = 0; i < data.length; i++) {
         createRow(data[i]);
       }
-      $("#item_cnt").each(function () {
-        var total = 0;
-        total += parseInt($(this).text());
-        $("#item_total").append($("<div></div>").text(total + " 点"));
+      var sum = 0;
+      $(".item_cnt").each(function () {
+        sum += parseFloat($(this).text()); // Or this.innerHTML, this.innerText
       });
+      $("#item_total").append($("<div></div>").text(sum + " 点"));
     });
 
   //A function that renders the table after the file is loaded
@@ -171,7 +171,7 @@ function getitem(from, to, type) {
     $("#payment-item").append(row);
     row.append($("<span>" + tableData.customer_category + "</span>"));
     row.append(
-      $("<span id='item_cnt'>" + tableData.payment_item_cnt_sum + "</span>")
+      $("<span class='item_cnt'>" + tableData.payment_item_cnt_sum + "</span>")
     );
   }
 }

@@ -67,7 +67,7 @@ function getmember(from, to, type) {
       FROM
           (e_real_sales
           LEFT JOIN r_zip ON ((e_real_sales.customer_postal_code = CONVERT( r_zip.zip_key USING UTF8MB4))))
-          WHERE  LEFT(e_real_sales.payment_date,7) >= '2020-06' AND LEFT(e_real_sales.payment_date,7) <= '2020-07' /* DATE_KEY(YYYY-MM) */
+          WHERE  LEFT(e_real_sales.payment_date,7) >= '${from}' AND LEFT(e_real_sales.payment_date,7) <= '${to}' /* DATE_KEY(YYYY-MM) */
           
       GROUP BY e_real_sales.customer_name , TIMESTAMPDIFF(YEAR,
           (CASE e_real_sales.customer_birthday
@@ -115,7 +115,7 @@ function getmember(from, to, type) {
       FROM
           (e_ec_sales
           LEFT JOIN r_zip ON ((e_ec_sales.customer_postal_code = CONVERT( r_zip.zip USING UTF8MB4))))
-          WHERE DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') >= '2020-03' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') <= '2020-07' /* DATE_KEY(YYYY-MM) */
+          WHERE DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') >= '${from}' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') <= '${to}' /* DATE_KEY(YYYY-MM) */
       GROUP BY e_ec_sales.customer_name , e_ec_sales.customer_tel , e_ec_sales.customer_postal_code , CONCAT(r_zip.ken_name,
               r_zip.city_name) , DATE_FORMAT(e_ec_sales.order_date,
               '%Y-%m')
@@ -157,11 +157,11 @@ function getmember(from, to, type) {
       for (var i = 0; i < data.length; i++) {
         createRow(data[i]);
       }
-      $("#member_cnt").each(function () {
-        var total = 0;
-        total += parseInt($(this).text());
-        $("#member_total").append($("<div></div>").text(total + " 名"));
+      var sum = 0;
+      $(".member_cnt").each(function () {
+        sum += parseFloat($(this).text()); // Or this.innerHTML, this.innerText
       });
+      $("#member_total").append($("<div></div>").text(sum + " 名"));
     });
 
   //A function that renders the table after the file is loaded
@@ -169,7 +169,9 @@ function getmember(from, to, type) {
     var row = $('<div class="res"/>');
     $("#member").append(row);
     row.append($("<span>" + tableData.customer_category + "</span>"));
-    row.append($("<span id='member_cnt'>" + tableData.member_cnt + "</span>"));
+    row.append(
+      $("<span class='member_cnt'>" + tableData.member_cnt + "</span>")
+    );
   }
 }
 
