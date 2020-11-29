@@ -73,7 +73,7 @@ function getdata(from, to, type) {
     (
         SELECT         
             
-            CASE WHEN EXISTS(select * FROM e_ec_sales WHERE e_ec_sales.customer_name = e_real_sales.customer_name AND (replace(e_ec_sales.customer_postal_code,'-','') = e_real_sales.customer_postal_code OR replace(e_ec_sales.customer_tel,'-','') = replace(e_real_sales.customer_tel1,'-','') ) AND LEFT(e_real_sales.payment_date,7) >= '2020-06' AND LEFT(e_real_sales.payment_date,7) <= '2020-07' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') >= '2020-06' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') <= '2020-07' ) = true THEN 'COMMON' ELSE 'REAL' END  AS customer_category, /* DATE_KEY(YYYY-MM) */
+            CASE WHEN EXISTS(select * FROM e_ec_sales WHERE e_ec_sales.customer_name = e_real_sales.customer_name AND (replace(e_ec_sales.customer_postal_code,'-','') = e_real_sales.customer_postal_code OR replace(e_ec_sales.customer_tel,'-','') = replace(e_real_sales.customer_tel1,'-','') ) AND LEFT(e_real_sales.payment_date,7) >= '${from}' AND LEFT(e_real_sales.payment_date,7) <= '${to}' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') >= '${from}' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') <= '${to}' ) = true THEN 'COMMON' ELSE 'REAL' END  AS customer_category, /* DATE_KEY(YYYY-MM) */
             
             e_real_sales.customer_name AS customer_name,
             TIMESTAMPDIFF(YEAR,
@@ -121,7 +121,7 @@ function getdata(from, to, type) {
             7) 
         UNION ALL SELECT 
             
-        CASE WHEN EXISTS(select * FROM e_real_sales WHERE e_ec_sales.customer_name = e_real_sales.customer_name AND ( replace(e_ec_sales.customer_postal_code,'-','') = e_real_sales.customer_postal_code OR replace(e_ec_sales.customer_tel,'-','') = replace(e_real_sales.customer_tel1,'-','') ) AND LEFT(e_real_sales.payment_date,7) >= '2020-06' AND LEFT(e_real_sales.payment_date,7) <= '2020-07' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') >= '2020-06' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') <= '2020-07' ) = true THEN 'COMMON' ELSE 'EC' END  AS customer_category, /* DATE_KEY(YYYY-MM) */
+        CASE WHEN EXISTS(select * FROM e_real_sales WHERE e_ec_sales.customer_name = e_real_sales.customer_name AND ( replace(e_ec_sales.customer_postal_code,'-','') = e_real_sales.customer_postal_code OR replace(e_ec_sales.customer_tel,'-','') = replace(e_real_sales.customer_tel1,'-','') ) AND LEFT(e_real_sales.payment_date,7) >= '${from}' AND LEFT(e_real_sales.payment_date,7) <= '${to}' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') >= '${from}' AND DATE_FORMAT(e_ec_sales.order_date,'%Y-%m') <= '${to}' ) = true THEN 'COMMON' ELSE 'EC' END  AS customer_category, /* DATE_KEY(YYYY-MM) */
         
             e_ec_sales.customer_name AS customer_name,
             0 AS age,
