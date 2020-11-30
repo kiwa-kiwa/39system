@@ -169,17 +169,14 @@ function getmoney(from, to, type) {
 
   //A function that renders the table after the file is loaded
   function createRow(tableData) {
-    var row = $('<div class="res"/>');
-    $("#money").append(row);
-    row.append($("<span>" + tableData.customer_category + "</span>"));
-    row.append(
-      $(
-        "<span class='money_cnt'>" +
-          tableData.payment_money_sum.toLocaleString() +
-          " 円" +
-          "</span>"
-      )
-    );
+    $("#money .res").each(function () {
+      var ht = $(this).find("span").html();
+      if (ht === tableData.customer_category) {
+        $(this)
+          .find(".money_cnt")
+          .html(tableData.payment_money_sum.toLocaleString() + " 円");
+      }
+    });
   }
 }
 

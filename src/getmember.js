@@ -166,19 +166,28 @@ function getmember(from, to, type) {
       );
     });
 
-  //A function that renders the table after the file is loaded
+  //A function that renders the value
   function createRow(tableData) {
-    var row = $('<div class="res"/>');
-    $("#member").append(row);
-    row.append($("<span>" + tableData.customer_category + "</span>"));
-    row.append(
-      $(
-        "<span class='member_cnt'>" +
-          tableData.member_cnt.toLocaleString() +
-          " 名" +
-          "</span>"
-      )
-    );
+    // var row = $('<div class="res"/>');
+    // $("#member").append(row);
+    // row.append($("<span>" + tableData.customer_category + "</span>"));
+    // row.append(
+    //   $(
+    //     "<span class='member_cnt'>" +
+    //       tableData.member_cnt.toLocaleString() +
+    //       " 名" +
+    //       "</span>"
+    //   )
+    // );
+
+    $("#member  .res").each(function () {
+      var ht = $(this).find("span").html();
+      if (ht === tableData.customer_category) {
+        $(this)
+          .find(".member_cnt")
+          .html(tableData.member_cnt.toLocaleString() + " 名");
+      }
+    });
   }
 }
 

@@ -167,17 +167,14 @@ function getitem(from, to, type) {
 
   //A function that renders the table after the file is loaded
   function createRow(tableData) {
-    var row = $('<div class="res"/>');
-    $("#payment-item").append(row);
-    row.append($("<span>" + tableData.customer_category + "</span>"));
-    row.append(
-      $(
-        "<span class='item_cnt'>" +
-          tableData.payment_item_cnt_sum.toLocaleString() +
-          " 点" +
-          "</span>"
-      )
-    );
+    $("#payment-item .res").each(function () {
+      var ht = $(this).find("span").html();
+      if (ht === tableData.customer_category) {
+        $(this)
+          .find(".item_cnt")
+          .html(tableData.payment_item_cnt_sum.toLocaleString() + " 点");
+      }
+    });
   }
 }
 
