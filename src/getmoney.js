@@ -4,6 +4,8 @@ var data = [];
 
 //Saving To DB
 function getmoney(from, to, type) {
+  $("#money #loading-item").css("display", "flex");
+
   var query = connection.query(`SELECT 
 
   view_sum.customer_category
@@ -165,6 +167,7 @@ function getmoney(from, to, type) {
       $("#money_total").append(
         $("<div></div>").text(sum.toLocaleString() + " 円")
       );
+      $("#money #loading-item").css("display", "none");
     });
 
   //A function that renders the table after the file is loaded

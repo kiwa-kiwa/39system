@@ -204,6 +204,18 @@ section.inputters {
       width: 30%;
       background: #fff;
       padding: 1em;
+      position: relative;
+      #loading-item {
+        position: absolute;
+        background: #ffffffc7;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
       h3 {
         margin-bottom: 1em;
         margin-top: 0;

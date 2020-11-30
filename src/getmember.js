@@ -4,6 +4,8 @@ var data = [];
 
 //Saving To DB
 function getmember(from, to, type) {
+  $("#member #loading-item").css("display", "flex");
+
   var query = connection.query(`SELECT 
 
   view_sum.customer_category
@@ -164,6 +166,7 @@ function getmember(from, to, type) {
       $("#member_total").append(
         $("<div></div>").text(sum.toLocaleString() + " 名")
       );
+      $("#member #loading-item").css("display", "none");
     });
 
   //A function that renders the value

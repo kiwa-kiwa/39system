@@ -4,6 +4,8 @@ var data = [];
 
 //Saving To DB
 function getitem(from, to, type) {
+  $("#payment-item #loading-item").css("display", "flex");
+
   var query = connection.query(`SELECT 
 
   view_sum.customer_category
@@ -163,6 +165,7 @@ function getitem(from, to, type) {
         sum += parseFloat($(this).text().replace(/\D/g, "")); // Or this.innerHTML, this.innerText
       });
       $("#item_total").append($("<div></div>").text(sum + " 点"));
+      $("#payment-item #loading-item").css("display", "none");
     });
 
   //A function that renders the table after the file is loaded
