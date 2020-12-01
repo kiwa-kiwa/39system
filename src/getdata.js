@@ -214,11 +214,22 @@ function getdata(from, to, type) {
       getitem(from, to);
       //Make Table
       $("#data").DataTable({
+        dom: "lr<'tbl-x't>ipB",
+        buttons: [
+          {
+            extend: "csv",
+            text:
+              "<i class='fa fa-download'></i> 検索した顧客情報をCSVで出力する",
+          },
+        ],
         searching: false,
-        lengthChange: false,
-        pageLength: 5,
         info: false,
         language: {
+          lengthMenu: " _MENU_ 件表示",
+          zeroRecords: "Nothing found - sorry",
+          info: "Showing page _PAGE_ of _PAGES_",
+          infoEmpty: "No records available",
+          infoFiltered: "(filtered from _MAX_ total records)",
           oPaginate: {
             sNext: '<i class="fa fa-chevron-right"></i>',
             sPrevious: '<i class="fa fa-chevron-left"></i>',

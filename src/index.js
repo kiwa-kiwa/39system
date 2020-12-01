@@ -1,7 +1,11 @@
 const path = require("path");
 var $ = require("jquery");
 const getdata = require("./getdata");
-require("datatables.net")(window, $);
+require("datatables.net-dt")(window, $);
+require("datatables.net-buttons-dt")(window, $);
+require("datatables.net-buttons/js/buttons.flash.js")(window, $);
+require("jszip");
+require("datatables.net-buttons/js/buttons.html5.js")(window, $);
 
 //EC CLick
 document.getElementById("ec").addEventListener("click", () => {

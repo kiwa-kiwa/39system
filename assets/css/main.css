@@ -391,7 +391,7 @@ section.table {
   background-color: #fff;
 }
 
-section.table #tbl-cont {
+section.table #tbl-x {
   overflow-x: scroll;
 }
 
@@ -486,6 +486,32 @@ button:focus {
 
 .numtd {
   text-align: right;
+}
+
+div#data_length {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 1em;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.dt-buttons {
+  text-align: right;
+  width: 98%;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+.dt-buttons button {
+  padding: 0.5em 1em;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  border: 0;
 }
 
 @media screen and (max-width: 426px) {

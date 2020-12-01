@@ -52,7 +52,7 @@ section.table {
   width: 98%;
   margin: 1em auto;
   background-color: #fff;
-  #tbl-cont {
+  #tbl-x {
     overflow-x: scroll;
   }
   #data_paginate {
@@ -143,4 +143,23 @@ button {
 }
 .numtd {
   text-align: right;
+}
+div#data_length {
+  display: flex;
+  padding: 1em;
+  justify-content: flex-end;
+}
+.dt-buttons {
+  text-align: right;
+  width: 98%;
+  padding: 1em;
+  margin-bottom: 1em;
+  button {
+    padding: 0.5em 1em;
+    background-color: $primary-color;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    border: 0;
+  }
 }
