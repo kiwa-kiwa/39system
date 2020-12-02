@@ -26,6 +26,7 @@ document.getElementById("getdata").addEventListener("click", (e) => {
   var from;
   var to;
   var type = [];
+  console.log(a);
   a.forEach((data) => {
     if (data.name === "from") {
       from = data.value;
@@ -35,7 +36,7 @@ document.getElementById("getdata").addEventListener("click", (e) => {
       type.push(data.value);
     }
   });
-  getdata(from, to, type);
+  //getdata(from, to, type);
   $("#refresh").css("display", "block");
   document.getElementById("getdata").style.display = "none";
 });

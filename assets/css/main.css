@@ -514,6 +514,33 @@ div#data_length {
   border: 0;
 }
 
+#srchform {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+#srchform .form-item {
+  width: 45%;
+}
+
+#srchform .form-item:last-child {
+  width: 100%;
+}
+
+#srchform .form-item select {
+  font-size: 1em;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  color: #333;
+}
+
 @media screen and (max-width: 426px) {
   header .row {
     -webkit-box-pack: center;
