@@ -4,7 +4,7 @@ const { shell } = require("electron");
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1024,
+    width: 1300,
     height: 800,
     webPreferences: {
       nodeIntegration: true,
